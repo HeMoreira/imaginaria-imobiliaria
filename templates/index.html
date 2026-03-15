@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}ricardo{% endblock %}
+
+{% block main %}
+<main>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero__bg">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80" alt="Imóvel de luxo" class="hero__img" />
+        <div class="hero__overlay"></div>
+        </div>
+        <div class="hero__content">
+            <p class="hero__eyebrow">Exclusividade em cada detalhe</p>
+            <h1 class="hero__title">Encontre o lar<br/><em>que você merece</em></h1>
+            <p class="hero__sub">Propriedades selecionadas em São Paulo e região para quem valoriza qualidade de vida</p>
+            <div class="hero__actions">
+                <a href="#imoveis" class="btn btn--primary">Ver Imóveis</a>
+                <a href="#mapa" class="btn btn--ghost">Ver no Mapa</a>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- ===== SOBRE ===== -->
+    <section id="sobre" class="about">
+        <div class="about__inner">
+            <div class="about__text">
+                <span class="section-label">Sobre nós</span>
+                <h2 class="section-title">Há mais de 20 anos<br/>construindo histórias</h2>
+                <p>A <strong>Nobre Imóveis</strong> nasceu da paixão por conectar pessoas aos lugares onde os melhores momentos de suas vidas acontecem. Nosso portfólio reúne propriedades cuidadosamente selecionadas — apartamentos modernos, casas amplas e coberturas exclusivas — em localidades privilegiadas de São Paulo.</p>
+                <p>Trabalhamos com transparência, agilidade e um atendimento personalizado que transforma a busca pelo imóvel ideal numa experiência tranquila e segura.</p>
+                <div class="about__stats">
+                    <div class="stat"><span class="stat__number">+800</span><span class="stat__label">Imóveis vendidos</span></div>
+                    <div class="stat"><span class="stat__number">98%</span><span class="stat__label">Clientes satisfeitos</span></div>
+                    <div class="stat"><span class="stat__number">20+</span><span class="stat__label">Anos de mercado</span></div>
+                </div>
+            </div>
+            <div class="about__image-stack">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Casa de luxo" class="about__img about__img--back" />
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Sala moderna" class="about__img about__img--front" />
+            </div>
+        </div>
+    </section>
+ 
+    <!-- ===== IMÓVEIS ===== -->
+    <section id="imoveis" class="listings">
+        <div class="listings__header">
+            <span class="section-label">Portfólio</span>
+            <h2 class="section-title">Imóveis disponíveis</h2>
+            <div class="listings__filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="apartamento">Apartamentos</button>
+                <button class="filter-btn" data-filter="casa">Casas</button>
+                <button class="filter-btn" data-filter="cobertura">Coberturas</button>
+            </div>
+        </div>
+        <div class="listings__grid" id="listingsGrid"></div>
+    </section>
+ 
+    <!-- ===== MAPA ===== -->
+    <section id="mapa" class="map-section">
+        <div class="map-section__header">
+            <span class="section-label">Localização</span>
+            <h2 class="section-title">Encontre no mapa</h2>
+            <p>Explore nossas propriedades diretamente no mapa. Clique em um marcador para ver detalhes.</p>
+        </div>
+        <div class="map-section__container">
+            <div id="map"></div>
+            <div class="map-legend">
+                <div class="legend-item"><span class="legend-dot legend-dot--apartamento"></span>Apartamento</div>
+                <div class="legend-item"><span class="legend-dot legend-dot--casa"></span>Casa</div>
+                <div class="legend-item"><span class="legend-dot legend-dot--cobertura"></span>Cobertura</div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
