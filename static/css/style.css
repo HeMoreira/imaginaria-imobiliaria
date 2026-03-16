@@ -592,7 +592,24 @@ button {
 .legend-dot--casa        { background: var(--color-casa); }
 .legend-dot--cobertura   { background: var(--color-cobertura); }
 
-
+.bi-geo-alt-fill {
+    font-size: 2rem;
+}
+.marker-color-blue, .marker-color-green, .marker-color-purple {
+    border-radius: 50%;
+}
+.marker-color-blue {
+    background-color: var(--color-apartamento);
+    color: var(--color-apartamento);
+}
+.marker-color-green {
+    background-color: var(--color-casa);
+    color: var(--color-casa);
+}
+.marker-color-purple {
+    background-color: var(--color-cobertura);
+    color: var(--color-cobertura);
+}
 
 /* ================================================
    FOOTER

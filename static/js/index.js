@@ -1,9 +1,10 @@
 // Inicializa o mapa focado em Midtown Manhattan
 const map = L.map('map', {
+    attributionControl: false,
     scrollWheelZoom: false,
     smoothWheelZoom: true,
     zoomControl: true
-}).setView([-23.5384907945773, -46.65394544656181], 17);
+}).setView([-23.5384907945773, -46.65394544656181], 19);
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     subdomains: 'abcd',
@@ -39,18 +40,19 @@ mapDiv.addEventListener('wheel', function(e) {
 }, { passive: false });
 
 const iconBlue = L.divIcon({
-    className: 'marker color-blue',
-    iconSize: [16, 16],
-    iconAnchor: [8, 8]
+    // iconUrl: 'path-to-image.png'
+    className: 'bi bi-geo-alt-fill marker-color-blue',
+    iconSize: [33, 33],
+    iconAnchor: [12, 28]
 });
 const iconGreen = L.divIcon({
-    className: 'marker color-green',
-    iconSize: [16, 16],
+    className: 'marker-color-green',
+    iconSize: [25, 25],
     iconAnchor: [8, 8]
 });
 const iconPurple = L.divIcon({
-    className: 'marker color-purple',
-    iconSize: [16, 16],
+    className: 'marker-color-purple',
+    iconSize: [25, 25],
     iconAnchor: [8, 8]
 });
 
@@ -78,7 +80,11 @@ const locais = [
 ];
 
 locais.forEach(local => {
-    const marker = L.marker(local.coords, { icon: iconStyle }).addTo(map);
+
+    // let IconColor;
+    // switch()
+
+    const marker = L.marker(local.coords, { icon: iconBlue }).addTo(map);
     
     marker.bindPopup(`<b>${local.nome}</b><br>Clique para visitar.`);
 
