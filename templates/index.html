@@ -43,19 +43,7 @@
     </section>
  
     <!-- ===== IMÓVEIS ===== -->
-    <section id="imoveis" class="listings">
-        <div class="listings__header">
-            <span class="section-label">Portfólio</span>
-            <h2 class="section-title">Imóveis disponíveis</h2>
-            <div class="listings__filters">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="apartamento">Apartamentos</button>
-                <button class="filter-btn" data-filter="casa">Casas</button>
-                <button class="filter-btn" data-filter="cobertura">Coberturas</button>
-            </div>
-        </div>
-        <div class="listings__grid" id="listingsGrid"></div>
-    </section>
+    {% include 'partials/_listagem_imoveis.html' %}
  
     <!-- ===== MAPA ===== -->
     <section id="mapa" class="map-section">
