@@ -43,7 +43,7 @@ const iconBlue = L.divIcon({
     // iconUrl: 'path-to-image.png'
     className: 'bi bi-geo-alt-fill marker-color-blue',
     iconSize: [33, 33],
-    iconAnchor: [12, 28]
+    iconAnchor: [16, 24]
 });
 const iconGreen = L.divIcon({
     className: 'marker-color-green',
