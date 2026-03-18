@@ -11,10 +11,23 @@
     </div>
     <div class="listings__grid" id="listingsGrid">
         {% for imovel in imoveis %}
-        <div class="card">
-            <h3>{{ imovel.nome }}</h3>
-            <p>Preço: R$ {{ imovel.preco_compra }}</p>
-            <p>Preço: R$ {{ imovel.preco_aluguel }}</p>
+        <div class="prop-card" data-category="{{ imovel.category }}">
+            <div class="prop-card__thumb">
+                {% for imagem in imovel.imagens_do_produto %}
+                <img src="{{ imagem.caminho_da_imagem_principal }}" alt="Fachada de {{ imovel.nome }}" loading="lazy" />
+                {% endfor %}
+                <span class="prop-card__badge">{{ imovel.tipo_de_produto.value }}</span>
+                <span class="prop-card__status {{ statusClass }}">{{ imovel.status.value }}</span>
+            </div>
+            <div class="prop-card__body">
+                <h3 class="prop-card__name">{{ imovel.nome }}</h3>
+                <p class="prop-card__location">{{ imovel.bairro }}</p>
+                <div class="prop-card__footer">
+                <span class="prop-card__cta">
+                    Ver imóvel
+                </span>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>

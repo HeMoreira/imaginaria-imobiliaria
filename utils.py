@@ -1,5 +1,5 @@
 from models import db
-
+import os
 
 def salvar_imagens(caminho_base:str, lista_de_imagens:list):
     lista_de_caminhos_das_imagens = []
@@ -7,6 +7,8 @@ def salvar_imagens(caminho_base:str, lista_de_imagens:list):
         for imagem in lista_de_imagens:
             if imagem is not None:
                 caminho_da_nova_imagem = os.path.join(caminho_base, imagem.filename)
+                if os.path.exists(caminho_da_nova_imagem):
+                    caminho_da_nova_imagem = renomear_para_um_nome_unico(caminho_base, imagem.filename, 1)
                 imagem.save(caminho_da_nova_imagem)
                 lista_de_caminhos_das_imagens.append(caminho_da_nova_imagem)
             else:
@@ -14,3 +16,10 @@ def salvar_imagens(caminho_base:str, lista_de_imagens:list):
         return lista_de_caminhos_das_imagens
     else:
         return ["imagem não encontrada"] * len(lista_de_imagens)
+            
+def renomear_para_um_nome_unico(caminho_base:str, filename:str, contagem:int):
+    caminho_da_nova_imagem = os.path.join(caminho_base, filename + f"({contagem})")
+    if os.path.exists(caminho_da_nova_imagem):
+        return renomear_para_um_nome_unico(caminho_base, filename, contagem + 1)
+    else:
+        return caminho_da_nova_imagem

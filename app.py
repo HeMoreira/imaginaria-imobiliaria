@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from models import db
 from models import Imovel, ImagensImovel, PlantasImovel
-from utils import salvar_imagens, salvar_instancias_no_banco
+import os
+from utils import salvar_imagens
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///imaginariaimobiliaria.db'
@@ -17,34 +18,34 @@ def admin():
     if request.method == 'POST':
 
         lista_de_imagens = [
-            request.form.get('caminho_da_imagem_principal'),
-            request.form.get('caminho_da_imagem_de_fachada1'),
-            request.form.get('caminho_da_imagem_de_fachada2'),
-            request.form.get('caminho_da_imagem_de_area_comum1'),
-            request.form.get('caminho_da_imagem_de_area_comum2'),
-            request.form.get('caminho_da_imagem_de_area_comum3'),
-            request.form.get('caminho_da_imagem_de_area_comum4'),
-            request.form.get('caminho_da_imagem_de_area_comum5'),
-            request.form.get('caminho_da_imagem_de_area_comum6'),
-            request.form.get('caminho_da_imagem_de_area_comum7'),
-            request.form.get('caminho_da_imagem_de_area_comum8'),
-            request.form.get('caminho_da_imagem_de_area_comum9'),
-            request.form.get('caminho_da_imagem_de_area_comum10'),
+            request.files.get('caminho_da_imagem_principal'),
+            request.files.get('caminho_da_imagem_de_fachada1'),
+            request.files.get('caminho_da_imagem_de_fachada2'),
+            request.files.get('caminho_da_imagem_de_area_comum1'),
+            request.files.get('caminho_da_imagem_de_area_comum2'),
+            request.files.get('caminho_da_imagem_de_area_comum3'),
+            request.files.get('caminho_da_imagem_de_area_comum4'),
+            request.files.get('caminho_da_imagem_de_area_comum5'),
+            request.files.get('caminho_da_imagem_de_area_comum6'),
+            request.files.get('caminho_da_imagem_de_area_comum7'),
+            request.files.get('caminho_da_imagem_de_area_comum8'),
+            request.files.get('caminho_da_imagem_de_area_comum9'),
+            request.files.get('caminho_da_imagem_de_area_comum10'),
         ]
         lista_de_plantas = [
-            request.form.get('caminho_da_imagem_da_planta1'),
-            request.form.get('caminho_da_imagem_da_planta2'),
-            request.form.get('caminho_da_imagem_da_planta3'),
-            request.form.get('caminho_da_imagem_da_planta4'),
-            request.form.get('caminho_da_imagem_da_planta5'),
-            request.form.get('caminho_da_imagem_da_planta6'),
-            request.form.get('caminho_da_imagem_da_planta7'),
-            request.form.get('caminho_da_imagem_da_planta8'),
-            request.form.get('caminho_da_imagem_da_planta9'),
-            request.form.get('caminho_da_imagem_da_planta10')
+            request.files.get('caminho_da_imagem_da_planta1'),
+            request.files.get('caminho_da_imagem_da_planta2'),
+            request.files.get('caminho_da_imagem_da_planta3'),
+            request.files.get('caminho_da_imagem_da_planta4'),
+            request.files.get('caminho_da_imagem_da_planta5'),
+            request.files.get('caminho_da_imagem_da_planta6'),
+            request.files.get('caminho_da_imagem_da_planta7'),
+            request.files.get('caminho_da_imagem_da_planta8'),
+            request.files.get('caminho_da_imagem_da_planta9'),
+            request.files.get('caminho_da_imagem_da_planta10')
         ]
-        lista_de_caminhos_das_imagens = salvar_imagens('static/imagens', lista_de_imagens)
-        lista_de_caminhos_das_plantas = salvar_imagens('static/plantas', lista_de_plantas)
+        lista_de_caminhos_das_imagens = salvar_imagens('static/images', lista_de_imagens)
+        lista_de_caminhos_das_plantas = salvar_imagens('static/plants', lista_de_plantas)
 
         imagens_novo_imovel = ImagensImovel(
             caminho_da_imagem_principal=lista_de_caminhos_das_imagens[0],
