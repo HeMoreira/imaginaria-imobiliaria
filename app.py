@@ -44,8 +44,8 @@ def admin():
             request.files.get('caminho_da_imagem_da_planta9'),
             request.files.get('caminho_da_imagem_da_planta10')
         ]
-        lista_de_caminhos_das_imagens = salvar_imagens('static/images', lista_de_imagens)
-        lista_de_caminhos_das_plantas = salvar_imagens('static/plants', lista_de_plantas)
+        lista_de_caminhos_das_imagens = salvar_imagens('static/images/pictures', lista_de_imagens)
+        lista_de_caminhos_das_plantas = salvar_imagens('static/images/plants', lista_de_plantas)
 
         imagens_novo_imovel = ImagensImovel(
             caminho_da_imagem_principal=lista_de_caminhos_das_imagens[0],
@@ -117,12 +117,11 @@ def admin():
         novo_imovel.plantas_do_produto.append(plantas_novo_imovel)
         print(db.Model.metadata.tables.keys())
         try:
-            print(f"Sucesso ao adicionar imóvel")
             db.session.add(novo_imovel)
             db.session.commit()
-            return render_template('admin.html', mensagem="Imóvel adicionado com sucesso!")
+            imoveis = Imovel.query.all()
+            return render_template('admin.html', mensagem="Imóvel adicionado com sucesso!", imoveis=imoveis)
         except Exception as e:
-            print(f"Erro ao adicionar imóvel: {str(e)}")
             db.session.rollback()
             return render_template('admin.html', mensagem=f"Erro ao adicionar imóvel: {str(e)}")
     else:

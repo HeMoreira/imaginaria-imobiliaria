@@ -3,6 +3,8 @@
     --primary-color:      #f8f5f0;
     --primary-alt:        #f0ebe3;
     --primary-overlay:    rgba(248, 245, 240, 0.9);
+
+    --secondary-dark:     #775d25;
     --secondary-color:    #a07840;
     --secondary-light:    #c69b5c;
 
@@ -393,137 +395,513 @@ button {
     gap: 2rem;
 }
  
-/* ---- Property Card ---- */
-.prop-card {
-    background: var(--primary-color);
-    border: 1px solid var(--border-card);
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: var(--transition-base);
-    box-shadow: var(--shadow-color);
+.carousel-section__label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
 }
-.prop-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-color);
-    border-color: var(--border-color);
+
+.carousel-section__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--text-dark);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.01em;
 }
-.prop-card[data-category="APARTAMENTO"] { --cat-color: var(--color-apartamento); }
-.prop-card[data-category="CASA"]        { --cat-color: var(--color-casa); }
-.prop-card[data-category="COBERTURA"]   { --cat-color: var(--color-cobertura); }
- 
-.prop-card__thumb {
+
+.carousel-section__title em {
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+/* ── WRAPPER ── */
+.carousel {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.carousel-wrapper {
     position: relative;
-    height: 220px;
+}
+
+/* ── TRACK ── */
+.carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 1rem 0.25rem 2rem;
+    cursor: grab;
+}
+
+.carousel-track:active { cursor: grabbing; }
+.carousel-track::-webkit-scrollbar { display: none; }
+
+/* ── CARD ── */
+.prop-card {
+    flex: 0 0 clamp(260px, 75vw, 320px);
+    scroll-snap-align: start;
+    border-radius: 4px;
     overflow: hidden;
+    position: relative;
+    aspect-ratio: 3 / 4;
+    box-shadow: 0 4px 24px var(--shadow-color);
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
-.prop-card__thumb img {
-    transition: transform var(--transition-slow);
+
+.prop-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px var(--shadow-color), 0 0 0 1px var(--border-color);
 }
-.prop-card:hover .prop-card__thumb img { 
-    transform: scale(1.06); 
+
+/* ── IMAGE (full card) ── */
+.prop-card__bg {
+    position: absolute;
+    inset: 0;
+    background: var(--text-dark);
+}
+
+.prop-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.55s ease;
+}
+
+.prop-card:hover .prop-card__img {
+    transform: scale(1.06);
+}
+
+/* ── GRADIENT OVERLAY ── */
+.prop-card__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(30, 24, 16, 0.5) 62%,
+    rgba(30, 24, 16, 0.9) 100%
+    );
+    pointer-events: none;
+}
+
+/* ── CATEGORY BADGE ── */
+.prop-card__category {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    background: var(--secondary-dark);
+    color: var(--text-light);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.65rem;
+    border-radius: 2px;
+}
+
+/* ── CARD BODY (overlay) ── */
+.prop-card__body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 1.4rem 1.4rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.prop-card__name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.45rem;
+    line-height: 1.2;
+    color: var(--text-light);
+}
+
+.prop-card__location {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--secondary-light);
+    text-transform: uppercase;
+}
+
+.prop-card__footer {
+    margin-top: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+
+.prop-card__cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-light);
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--border-color);
+    transition: color 0.2s, border-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.prop-card__cta::after {
+    content: '→';
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.prop-card__cta:hover {
+    color: var(--secondary-light);
+    border-color: var(--secondary-light);
+}
+
+.prop-card__cta:hover::after {
+    transform: translateX(4px);
+}
+
+/* ── NAV ── */
+.carousel-nav {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+    align-items: center;
+}
+
+.carousel-nav__btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--secondary-color);
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.carousel-nav__btn:hover {
+    background: var(--secondary-color);
+    color: var(--text-light);
+    border-color: var(--secondary-color);
+}
+
+/* ── DOTS ── */
+.carousel-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex: 1;
+}
+
+.carousel-dots__dot {
+    width: 20px;
+    height: 2px;
+    background: var(--border-color);
+    border-radius: 1px;
+    transition: background 0.25s, width 0.25s;
+    cursor: pointer;
+}
+
+.carousel-dots__dot.active {
+    background: var(--secondary-color);
+    width: 36px;
 }
  
-.prop-card__badge {
-    position: absolute;
-    top: 1rem; left: 1rem;
-    padding: 0.3rem 0.75rem;
-    border-radius: 100px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: var(--cat-color);
-    color: var(--text-dark);
+/* ================================================
+   FORM SECTION
+   ================================================ */
+.form {
+    padding: 8rem 3rem;
+    background: var(--primary-alt);
 }
-.prop-card__status {
-    position: absolute;
-    top: 1rem; right: 1rem;
-    padding: 0.3rem 0.75rem;
-    border-radius: 100px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+/* ── Shared input styles ──────────────────────────────────── */
+ 
+form input[type="text"],
+form input[type="number"],
+form select {
+  display: block;
+  width: calc(100% - 5rem);
+  margin: 0 2.5rem .75rem;
+  padding: .7rem 1rem;
+  background: var(--primary-color);
+  border: 1.5px solid var(--border-color);
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .9375rem;
+  color: var(--text-dark);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
 }
-.prop-card__status--available {
-    background: rgba(110, 201, 158, 0.2);
-    border: 1px solid rgba(110, 201, 158, 0.5);
-    color: #6ec99e;
+ 
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form select:focus {
+  border-color: var(--border-color);
+  background: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(139,111,71,.13);
 }
-.prop-card__status--sold {
-    background: rgba(255,80,80,0.15);
-    border: 1px solid rgba(255,80,80,0.4);
-    color: #ff6060;
+ 
+form input[type="text"]::placeholder,
+form input[type="number"]::placeholder {
+  color: var(--text-muted);
+  font-weight: 300;
 }
-.prop-card__status--negotiating {
-    background: rgba(201, 169, 110, 0.15);
-    border: 1px solid var(--border-color);
-    color: var(--secondary-color);
+ 
+/* ── Select custom arrow ──────────────────────────────────── */
+ 
+form select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B6F47' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
 }
-.prop-card__body {
-    padding: 1.5rem;
+ 
+form select option[value=""] {
+  color: var(--text-muted);
 }
-.prop-card__name {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--text-dark);
-    margin-bottom: 0.25rem;
+ 
+/* ── Checkbox row ─────────────────────────────────────────── */
+ 
+form label[for="esta_visivel"] {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  width: calc(100% - 5rem);
+  margin: .5rem 2.5rem .25rem;
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  order: 0;
 }
-.prop-card__location {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
+ 
+form input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--secondary-color);
+  cursor: pointer;
+  margin: 0 2.5rem .75rem;
+  flex-shrink: 0;
 }
-.prop-card__specs {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.2rem;
-    margin-bottom: 1.2rem;
+ 
+/* Inline the checkbox next to label */
+form label[for="esta_visivel"] {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
 }
-.prop-card__specs li {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.78rem;
-    color: var(--text-muted);
+ 
+/* ── File inputs ──────────────────────────────────────────── */
+ 
+form input[type="file"] {
+  display: inline-block;
+  width: auto;
+  max-width: calc(50% - 3rem);
+  margin: .25rem 0 .25rem 2.5rem;
+  padding: .45rem .75rem;
+  background: var(--primary-color);
+  border: 1.5px dashed var(--border-color);
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .82rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  vertical-align: middle;
 }
-.prop-card__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-top: 1px solid var(--border-card);
-    padding-top: 1rem;
+ 
+form input[type="file"]:hover {
+  border-color: var(--border-color);
+  background: #FBF9F5;
 }
-.prop-card__price {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--secondary-color);
+ 
+form input[type="file"] + input[type="text"] {
+  display: inline-block;
+  width: calc(48% - 2rem);
+  margin: .25rem 2.5rem .25rem .75rem;
+  vertical-align: middle;
 }
-.prop-card__price-label {
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+ 
+/* ── Section dividers ─────────────────────────────────────── */
+ 
+/* 
+  We use adjacent sibling and nth-of-type tricks to add visual
+  section labels. Since we can't add wrappers, we use the
+  br elements as section spacers and ::before on specific inputs.
+*/
+ 
+/* First input — Informações Gerais */
+form > input[name="nome"] {
+  margin-top: 0;
 }
-.prop-card__cta {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--secondary-color);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    transition: gap var(--transition-fast);
+form > input[name="nome"]::before {
+  content: ""; /* cannot use on inputs */
 }
-.prop-card:hover .prop-card__cta { gap: 0.6rem; }
+ 
+/* Section label helper — applied via padding-top bumps */
+form > input[name="nome"]            { margin-top: 2rem; }
+form > input[name="preco_compra"]    { margin-top: 2rem; }
+form > input[name="menor_area_em_metros_quadrados"] { margin-top: 2rem; }
+form > input[name="cidade"]          { margin-top: 2rem; }
+ 
+/* Fake section header via box-shadow trick on first input of each section */
+form > input[name="nome"],
+form > input[name="preco_compra"],
+form > input[name="menor_area_em_metros_quadrados"],
+form > input[name="cidade"] {
+  position: relative;
+}
+ 
+/* Section separators using hr-like appearance before key inputs */
+/* Since we can't insert elements, we simulate with top padding + colored top border */
+form > input[name="nome"] {
+  border-top: 2px solid var(--border-color);
+}
+ 
+/* ── Grid layout for paired inputs ───────────────────────────
+   We use negative margins and flex tricks to pair related fields.
+   Targets: precos (4 fields), areas (2+2), quartos (2+2), endereco (4) 
+─────────────────────────────────────────────────────────────── */
+ 
+/* Prices: 2 columns */
+form > input[name="preco_compra"],
+form > input[name="preco_aluguel"] {
+  display: inline-block;
+  width: calc(50% - 3.25rem);
+  margin-right: .5rem;
+}
+form > input[name="preco_aluguel"] {
+  margin-left: 0;
+}
+ 
+form > input[name="condominio"],
+form > input[name="iptu"] {
+  display: inline-block;
+  width: calc(50% - 3.25rem);
+  margin-right: .5rem;
+}
+form > input[name="iptu"] {
+  margin-left: 0;
+}
+ 
+/* Area: 2 columns */
+form > input[name="menor_area_em_metros_quadrados"],
+form > input[name="maior_area_em_metros_quadrados"] {
+  display: inline-block;
+  width: calc(50% - 3.25rem);
+  margin-right: .5rem;
+}
+form > input[name="maior_area_em_metros_quadrados"] {
+  margin-left: 0;
+}
+ 
+/* Quartos: 2 columns */
+form > input[name="menor_quantidade_de_quartos"],
+form > input[name="maior_quantidade_de_quartos"] {
+  display: inline-block;
+  width: calc(50% - 3.25rem);
+  margin-right: .5rem;
+}
+form > input[name="maior_quantidade_de_quartos"] {
+  margin-left: 0;
+}
+ 
+/* Address: 2 columns */
+form > input[name="cidade"],
+form > input[name="bairro"] {
+  display: inline-block;
+  width: calc(50% - 3.25rem);
+  margin-right: .5rem;
+}
+form > input[name="bairro"] {
+  margin-left: 0;
+}
+ 
+form > input[name="endereco"],
+form > input[name="cep"] {
+  display: inline-block;
+  width: calc(50% - 3.25rem);
+  margin-right: .5rem;
+}
+form > input[name="cep"] {
+  margin-left: 0;
+}
+ 
+/* ── File section top spacing ─────────────────────────────── */
+ 
+form > input[name="caminho_da_imagem_principal"] {
+  margin-top: 1.5rem;
+}
+ 
+/* ── br cleanup ───────────────────────────────────────────── */
+ 
+form br {
+  display: block;
+  content: "";
+  margin-bottom: .25rem;
+}
+ 
+/* ── Submit button ────────────────────────────────────────── */
+ 
+form > button[type="submit"] {
+  display: block;
+  width: calc(100% - 5rem);
+  margin: 2rem 2.5rem 2.5rem;
+  padding: .95rem 2rem;
+  background: var(--secondary-color);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(139,111,71,.25);
+}
+ 
+form > button[type="submit"]:hover {
+  background: var(--secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(139,111,71,.35);
+}
+ 
+form > button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(139,111,71,.2);
+}
+ 
+/* ── Validation states ────────────────────────────────────── */
+ 
+form input:required:invalid:not(:placeholder-shown) {
+  border-color: red;
+}
+ 
+form input:required:valid {
+  border-color: green;
+}
  
 /* ================================================
    MAP SECTION
@@ -875,6 +1253,7 @@ button {
     .about__inner { grid-template-columns: 1fr; gap: 3rem; }
     .about__image-stack { height: 450px; }
     .footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+    .prop-card { flex: 0 0 320px; }
     .modal-detail__gallery { grid-template-columns: 1fr; grid-template-rows: 240px 140px 140px; }
     .modal-detail__gallery-item:first-child { grid-row: auto; }
     .modal-detail__body { grid-template-columns: 1fr; }
@@ -889,6 +1268,23 @@ button {
     .listings { padding: 5rem 1.5rem; }
     .map-section__header { padding: 5rem 1.5rem 2rem; }
     .footer { padding: 3rem 1.5rem 2rem; }
+    form {
+        grid-template-columns: 1fr;
+        padding: 0 1.25rem 1.25rem;
+    }
+    form::before {
+        font-size: 1.35rem;
+        padding: 1.25rem 1.5rem;
+        margin: 0 -1.25rem 1rem;
+    }
+    form > label[for="esta_visivel"],
+    form > input[type="checkbox"] {
+        grid-column: 1 / -1;
+    }
+    form > input[type="checkbox"] {
+        justify-self: start;
+    }
+    .prop-card { flex: 0 0 300px; }
     .modal-detail__gallery { grid-template-columns: 1fr; grid-template-rows: 240px 140px 140px; }
     .modal-detail__gallery-item:first-child { grid-row: auto; }
     .modal-detail__body { grid-template-columns: 1fr; }

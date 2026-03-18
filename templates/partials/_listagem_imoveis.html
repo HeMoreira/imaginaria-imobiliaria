@@ -9,26 +9,81 @@
             <button class="filter-btn" data-filter="cobertura">Coberturas</button>
         </div>
     </div>
-    <div class="listings__grid" id="listingsGrid">
-        {% for imovel in imoveis %}
-        <div class="prop-card" data-category="{{ imovel.category }}">
-            <div class="prop-card__thumb">
+    <div class="carousel-wrapper">
+        <div class="carousel-track" id="carouselTrack">
+            {% for imovel in imoveis %}
+            <div class="prop-card" data-category="{{ imovel.tipo_de_produto.value }}">
+                <div class="prop-card__bg">
                 {% for imagem in imovel.imagens_do_produto %}
-                <img src="{{ imagem.caminho_da_imagem_principal }}" alt="Fachada de {{ imovel.nome }}" loading="lazy" />
+                <img class="prop-card__img" src="{{ imagem.caminho_da_imagem_principal }}" alt="Fachada de {{ imovel.nome }}" loading="lazy" />
                 {% endfor %}
-                <span class="prop-card__badge">{{ imovel.tipo_de_produto.value }}</span>
-                <span class="prop-card__status {{ statusClass }}">{{ imovel.status.value }}</span>
-            </div>
-            <div class="prop-card__body">
+                </div>
+                <span class="prop-card__category">{{ imovel.tipo_de_produto.value }}</span>
+                <div class="prop-card__body">
                 <h3 class="prop-card__name">{{ imovel.nome }}</h3>
                 <p class="prop-card__location">{{ imovel.bairro }}</p>
                 <div class="prop-card__footer">
-                <span class="prop-card__cta">
-                    Ver imóvel
-                </span>
+                    <a class="prop-card__cta" href="">Ver Imóvel</a>
+                </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <div class="carousel-nav">
+        <div class="carousel-dots" id="carouselDots"></div>
+        <button class="carousel-nav__btn" id="btnPrev" aria-label="Anterior">&#8592;</button>
+        <button class="carousel-nav__btn" id="btnNext" aria-label="Próximo">&#8594;</button>
+        </div>
     </div>
 </section>
+<script>
+  const track  = document.getElementById('carouselTrack');
+  const dotsEl = document.getElementById('carouselDots');
+  const cards  = Array.from(track.querySelectorAll('.prop-card'));
+ 
+  cards.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'carousel-dots__dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => scrollToCard(i));
+    dotsEl.appendChild(d);
+  });
+ 
+  function updateDots() {
+    const gap = parseFloat(getComputedStyle(track).gap) || 24;
+    const idx = Math.round(track.scrollLeft / (cards[0].offsetWidth + gap));
+    dotsEl.querySelectorAll('.carousel-dots__dot').forEach((d, i) =>
+      d.classList.toggle('active', i === idx));
+  }
+ 
+  function scrollToCard(i) {
+    const gap = parseFloat(getComputedStyle(track).gap) || 24;
+    track.scrollTo({ left: i * (cards[0].offsetWidth + gap), behavior: 'smooth' });
+  }
+ 
+  function step(dir) {
+    const gap = parseFloat(getComputedStyle(track).gap) || 24;
+    const cur = Math.round(track.scrollLeft / (cards[0].offsetWidth + gap));
+    scrollToCard(Math.max(0, Math.min(cards.length - 1, cur + dir)));
+  }
+ 
+  document.getElementById('btnPrev').addEventListener('click', () => step(-1));
+  document.getElementById('btnNext').addEventListener('click', () => step(1));
+  track.addEventListener('scroll', updateDots, { passive: true });
+ 
+  /* drag to scroll (desktop) */
+  let isDown = false, startX, scrollLeft;
+ 
+  track.addEventListener('mousedown', e => {
+    isDown = true;
+    track.style.cursor = 'grabbing';
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mouseup',    () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mousemove',  e => {
+    if (!isDown) return;
+    e.preventDefault();
+    track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.4;
+  });
+</script>
