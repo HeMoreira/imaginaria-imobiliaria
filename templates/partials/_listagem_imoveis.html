@@ -3,14 +3,14 @@
         <span class="section-label">Portfólio</span>
         <h2 class="section-title">Imóveis disponíveis</h2>
         <div class="filter-buttons-container">
-            <button class="filter-btn active" data-filter="all">Todos</button>
-            <button class="filter-btn" data-filter="apartamento">Apartamentos</button>
-            <button class="filter-btn" data-filter="casa">Casas</button>
-            <button class="filter-btn" data-filter="cobertura">Coberturas</button>
+            <button class="filter-btn active" data-filter="ALL">Todos</button>
+            <button class="filter-btn" data-filter="APARTAMENTO">Apartamentos</button>
+            <button class="filter-btn" data-filter="CASA">Casas</button>
+            <button class="filter-btn" data-filter="TERRENO">Terrenos</button>
         </div>
     </div>
-    <div class="general-content">
-        <div class="carousel-track" id="carouselTrack">
+    <div class="carousel">
+        <div class="carousel-slides">
             {% for imovel in imoveis %}
             <div class="card">
                 <div class="card-bg">
@@ -29,61 +29,11 @@
             </div>
             {% endfor %}
         </div>
-        <div class="carousel-nav">
-            <div class="carousel-dots" id="carouselDots"></div>
-            <button class="carousel-nav__btn" id="btnPrev" aria-label="Anterior">&#8592;</button>
-            <button class="carousel-nav__btn" id="btnNext" aria-label="Próximo">&#8594;</button>
-        </div>
+        <button class="carousel-btn--left">&#8592;</button>
+        <button class="carousel-btn--right">&#8594;</button>
     </div>
 </section>
 <script>
-  const track  = document.getElementById('carouselTrack');
-  const dotsEl = document.getElementById('carouselDots');
-  const cards  = Array.from(track.querySelectorAll('.prop-card'));
- 
-  cards.forEach((_, i) => {
-    const d = document.createElement('span');
-    d.className = 'carousel-dots__dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => scrollToCard(i));
-    dotsEl.appendChild(d);
-  });
- 
-  function updateDots() {
-    const gap = parseFloat(getComputedStyle(track).gap) || 24;
-    const idx = Math.round(track.scrollLeft / (cards[0].offsetWidth + gap));
-    dotsEl.querySelectorAll('.carousel-dots__dot').forEach((d, i) =>
-      d.classList.toggle('active', i === idx));
-  }
- 
-  function scrollToCard(i) {
-    const gap = parseFloat(getComputedStyle(track).gap) || 24;
-    track.scrollTo({ left: i * (cards[0].offsetWidth + gap), behavior: 'smooth' });
-  }
- 
-  function step(dir) {
-    const gap = parseFloat(getComputedStyle(track).gap) || 24;
-    const cur = Math.round(track.scrollLeft / (cards[0].offsetWidth + gap));
-    scrollToCard(Math.max(0, Math.min(cards.length - 1, cur + dir)));
-  }
- 
-  document.getElementById('btnPrev').addEventListener('click', () => step(-1));
-  document.getElementById('btnNext').addEventListener('click', () => step(1));
-  track.addEventListener('scroll', updateDots, { passive: true });
- 
-  /* drag to scroll (desktop) */
-  let isDown = false, startX, scrollLeft;
- 
-  track.addEventListener('mousedown', e => {
-    isDown = true;
-    track.style.cursor = 'grabbing';
-    startX = e.pageX - track.offsetLeft;
-    scrollLeft = track.scrollLeft;
-  });
-  track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
-  track.addEventListener('mouseup',    () => { isDown = false; track.style.cursor = 'grab'; });
-  track.addEventListener('mousemove',  e => {
-    if (!isDown) return;
-    e.preventDefault();
-    track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.4;
-  });
+    const filtro_listagem = "{{ filtro_listagem }}";
 </script>
+<script src="static/js/listings.js"></script>
