@@ -395,64 +395,44 @@ p strong {
 /* ================================================
    LISTINGS
    ================================================ */
-.carousel-track {
-    display: flex;
-    gap: 1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+.carousel {
+    width: 1200px;
+    margin: 2.5rem auto 0;
     scrollbar-width: none;
-    padding: 1rem 0.25rem 2rem;
+    overflow-x: auto;
 }
+.carousel-slides{
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 10px;
+}
+
 .carousel-track::-webkit-scrollbar { display: none; }
 
 /* ── NAV ── */
-.carousel-nav {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 0.5rem;
-    align-items: center;
-}
-.carousel-nav__btn {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--border-color);
-    background: transparent;
+.carousel-btn--left, .carousel-btn--right {
+    margin-top: 1.5rem;
+    padding: 6px 10px;
+    border: 3px solid var(--secondary-color);
+    border-radius: 4px;
     color: var(--secondary-color);
-    border-radius: 2px;
+    font-size: 20px;
     cursor: pointer;
-    font-size: 1rem;
-    display: grid;
-    place-items: center;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s ease;
 }
-.carousel-nav__btn:hover {
-    background: var(--secondary-color);
+.carousel-btn--left:hover, .carousel-btn--right:hover {
+    background-color: var(--secondary-color);
     color: var(--text-light);
-    border-color: var(--secondary-color);
 }
-.carousel-dots {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    flex: 1;
-}
-.carousel-dots__dot {
-    width: 20px;
-    height: 2px;
-    background: var(--border-color);
-    border-radius: 1px;
-    transition: background 0.25s, width 0.25s;
-    cursor: pointer;
-}
-.carousel-dots__dot.active {
-    background: var(--secondary-color);
-    width: 36px;
-}
+.carousel-btn--left { left: 10px; }
+.carousel-btn--right { right: 10px; }
 
 /* ── CARDS ── */
 .card {
     flex: 0 0 320px;
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
     border-radius: 6px;
     overflow: hidden;
     position: relative;
@@ -484,8 +464,8 @@ p strong {
     inset: 0;
     background: linear-gradient(
     to bottom,
-    transparent 50%,
-    rgba(30, 24, 16, 0.5) 80%,
+    transparent 40%,
+    rgba(30, 24, 16, 0.5) 70%,
     rgba(30, 24, 16, 0.9) 100%
     );
     pointer-events: none;
@@ -667,10 +647,10 @@ form > button[type="submit"]:hover {
     transform: translateY(-1px);
 }
 form input:required:invalid, form select:required:invalid {
-    border-color: red;
+    border-color: rgb(255, 88, 27);
 }
 form input:required:valid, form select:required:valid {
-    border-color: green;
+    border-color: rgb(12, 210, 12);
 }
 /* ================================================
    MAP SECTION
