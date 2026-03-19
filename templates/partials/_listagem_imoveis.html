@@ -1,38 +1,38 @@
-<section id="imoveis" class="listings">
-    <div class="listings__header">
+<section id="imoveis" class="general-section-padding general-section-background">
+    <div class="general-content">
         <span class="section-label">Portfólio</span>
         <h2 class="section-title">Imóveis disponíveis</h2>
-        <div class="listings__filters">
+        <div class="filter-buttons-container">
             <button class="filter-btn active" data-filter="all">Todos</button>
             <button class="filter-btn" data-filter="apartamento">Apartamentos</button>
             <button class="filter-btn" data-filter="casa">Casas</button>
             <button class="filter-btn" data-filter="cobertura">Coberturas</button>
         </div>
     </div>
-    <div class="carousel-wrapper">
+    <div class="general-content">
         <div class="carousel-track" id="carouselTrack">
             {% for imovel in imoveis %}
-            <div class="prop-card" data-category="{{ imovel.tipo_de_produto.value }}">
-                <div class="prop-card__bg">
+            <div class="card">
+                <div class="card-bg">
                 {% for imagem in imovel.imagens_do_produto %}
-                <img class="prop-card__img" src="{{ imagem.caminho_da_imagem_principal }}" alt="Fachada de {{ imovel.nome }}" loading="lazy" />
+                <img class="card-img" src="{{ imagem.caminho_da_imagem_principal }}" alt="Fachada de {{ imovel.nome }}" loading="lazy" />
                 {% endfor %}
                 </div>
-                <span class="prop-card__category">{{ imovel.tipo_de_produto.value }}</span>
-                <div class="prop-card__body">
-                <h3 class="prop-card__name">{{ imovel.nome }}</h3>
-                <p class="prop-card__location">{{ imovel.bairro }}</p>
-                <div class="prop-card__footer">
-                    <a class="prop-card__cta" href="">Ver Imóvel</a>
-                </div>
+                <span class="card-type" data-category="{{ imovel.tipo_de_produto.value }}">{{ imovel.tipo_de_produto.value }}</span>
+                <div class="card-body">
+                    <h3 class="card-name">{{ imovel.nome }}</h3>
+                    <p class="card-location">{{ imovel.bairro }}</p>
+                    <div class="card-footer">
+                        <a class="card-info-redirect" href="">Ver Imóvel</a>
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
         <div class="carousel-nav">
-        <div class="carousel-dots" id="carouselDots"></div>
-        <button class="carousel-nav__btn" id="btnPrev" aria-label="Anterior">&#8592;</button>
-        <button class="carousel-nav__btn" id="btnNext" aria-label="Próximo">&#8594;</button>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <button class="carousel-nav__btn" id="btnPrev" aria-label="Anterior">&#8592;</button>
+            <button class="carousel-nav__btn" id="btnNext" aria-label="Próximo">&#8594;</button>
         </div>
     </div>
 </section>
