@@ -12,22 +12,13 @@
     <div class="carousel">
         <div class="carousel-slides">
             {% for imovel in imoveis %}
-            <div class="card">
-                <div class="card-bg">
-                {% for imagem in imovel.imagens_do_produto %}
-                <img class="card-img" src="{{ imagem.caminho_da_imagem_principal }}" alt="Fachada de {{ imovel.nome }}" loading="lazy" />
-                {% endfor %}
-                </div>
-                <span class="card-type" data-category="{{ imovel.tipo_de_produto.value }}">{{ imovel.tipo_de_produto.value }}</span>
-                <div class="card-body">
-                    <h3 class="card-name">{{ imovel.nome }}</h3>
-                    <p class="card-location">{{ imovel.bairro }}</p>
-                    <div class="card-footer">
-                        <a class="card-info-redirect" href="">Ver Imóvel</a>
-                    </div>
-                </div>
-            </div>
+                {% with imovel=imovel %}
+                    {% include 'partials/_novo_card.html' %}
+                {% endwith %}
             {% endfor %}
+            {% with imovel=imoveis[0] %}
+                {% include 'partials/_novo_card.html' %}
+            {% endwith %}
         </div>
         <button class="carousel-btn--left">&#8592;</button>
         <button class="carousel-btn--right">&#8594;</button>
