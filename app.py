@@ -1,22 +1,45 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import LoginManager, login_required, login_user
 from models import db
-from models import Imovel, ImagensImovel, PlantasImovel
-import os
+from models import Imovel, ImagensImovel, PlantasImovel, Admin
 from utils import salvar_imagens
+from forms import AdminForm
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'incrediblekeythatwilldefinitelybechangedbeforerunningintoproduction'
+login_manager = LoginManager()
+login_manager.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///imaginariaimobiliaria.db'
 db.init_app(app)
+
+@login_manager.user_loader
+def load_user(admin_id):
+    print(Admin.query.get(admin_id))
+    return Admin.query.get(admin_id)
 
 @app.route("/", methods=['GET'])
 def index():
     imoveis = Imovel.query.all()
     return render_template('index.html', imoveis=imoveis)
 
-@app.route("/admin", methods=['POST', 'GET'])
+@app.route("/11_login_k", methods=['POST', 'GET'])
+def login():
+    form = AdminForm(request.form)
+    if request.method == 'POST' and form.validate():
+        admin = Admin.query.filter_by(username=form.username.data).first()
+        if admin and admin.check_password(form.password.data):
+            login_user(admin)
+            flash("Logado com sucesso!", "sucess")
+            return redirect(url_for('admin'))
+        else:
+            return render_template('login.html', form=form)
+    else:
+        return render_template('login.html', form=form)
+
+@app.route("/11_damin_k", methods=['POST', 'GET'])
+@login_required
 def admin():
     if request.method == 'POST':
-
         lista_de_imagens = [
             request.files.get('caminho_da_imagem_principal'),
             request.files.get('caminho_da_imagem_de_fachada1'),
@@ -115,7 +138,6 @@ def admin():
         )
         novo_imovel.imagens_do_produto.append(imagens_novo_imovel)
         novo_imovel.plantas_do_produto.append(plantas_novo_imovel)
-        print(db.Model.metadata.tables.keys())
         try:
             db.session.add(novo_imovel)
             db.session.commit()
@@ -129,6 +151,6 @@ def admin():
         return render_template('admin.html', imoveis=imoveis)
 
 if __name__ == "__main__":
-    # with app.app_context():
-    #     db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
