@@ -560,6 +560,7 @@ p strong {
    FORM SECTION
    ================================================ */
 form input[type="text"],
+form input[type="password"],
 form input[type="number"],
 form select {
     display: block;
@@ -575,6 +576,7 @@ form select {
     outline: none;
 }
 form input[type="text"]:focus,
+form input[type="password"]:focus,
 form input[type="number"]:focus,
 form select:focus {
   border-color: var(--border-color);
@@ -628,7 +630,7 @@ form > input[name="menor_area_em_metros_quadrados"] { margin-top: 2rem; }
 form > input[name="cidade"]          { margin-top: 2rem; }
 form > label                         { margin-top: 1rem; }
  
-form > button[type="submit"] {
+form > button[type="submit"], .btn-submit {
     display: block;
     margin-top: 1rem;
     width: 100%;
@@ -646,7 +648,7 @@ form > button[type="submit"] {
     box-shadow: 0 2px 5px var(--shadow-color);
     transition: var(--transition-fast);
 }
-form > button[type="submit"]:hover {
+form > button[type="submit"]:hover, .btn-submit:hover {
     background: var(--secondary-dark);
     transform: translateY(-1px);
 }
