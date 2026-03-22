@@ -11,14 +11,16 @@
     </div>
     <div class="carousel">
         <div class="carousel-slides">
-            {% for imovel in imoveis %}
-                {% with imovel=imovel %}
+            {% if imoveis != [] %}
+                {% for imovel in imoveis %}
+                    {% with imovel=imovel %}
+                        {% include 'partials/_novo_card.html' %}
+                    {% endwith %}
+                {% endfor %}
+                {% with imovel=imoveis[0] %}
                     {% include 'partials/_novo_card.html' %}
                 {% endwith %}
-            {% endfor %}
-            {% with imovel=imoveis[0] %}
-                {% include 'partials/_novo_card.html' %}
-            {% endwith %}
+            {% endif %}
         </div>
         <button class="carousel-btn--left">&#8592;</button>
         <button class="carousel-btn--right">&#8594;</button>

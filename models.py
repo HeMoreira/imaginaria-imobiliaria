@@ -1,5 +1,7 @@
 from enum import Enum
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
@@ -103,3 +105,19 @@ class PlantasImovel(db.Model):
 
     def __repr__(self):
         return f"id: {self.id} - id_imovel: {self.imovel_id}"
+    
+class Admin(db.Model, UserMixin):
+    __tablename__ = 'administradores'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(25), nullable=False)
+    password_hash = db.Column(db.String(256), nullable=False)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return f"{self.id}_{self.username}"
+    
