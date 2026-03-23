@@ -579,8 +579,8 @@ form input[type="text"]:focus,
 form input[type="password"]:focus,
 form input[type="number"]:focus,
 form select:focus {
-  border-color: var(--border-color);
-  box-shadow: 0 0 3px var(--shadow-glow);
+    border-color: var(--border-color);
+    box-shadow: 0 0 3px var(--shadow-glow);
 }
 form input[type="text"]::placeholder,
 form input[type="number"]::placeholder {
@@ -590,17 +590,30 @@ form input[type="number"]::placeholder {
 form select {
     cursor: pointer;
 }
+.text-area {
+    display: block;
+    width: 100%;
+    margin: 0 0 0.75rem;
+    padding: 0.7rem 1rem;
+    background: var(--primary-color);
+    border: 1.5px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    outline: none;
+}
 .checkbox-form {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 form label[for="esta_visivel"] {
-  margin-left: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
 }
 form input[type="checkbox"] {
   width: 1.15rem;
@@ -624,11 +637,9 @@ form input[type="file"]:hover {
   border-color: var(--border-color);
   background: var(--primary-alt);
 }
-form > input[name="nome"]            { margin-top: 2rem; }
-form > input[name="preco_compra"]    { margin-top: 2rem; }
-form > input[name="menor_area_em_metros_quadrados"] { margin-top: 2rem; }
-form > input[name="cidade"]          { margin-top: 2rem; }
-form > label                         { margin-top: 1rem; }
+form br {
+    margin-top: 0.75rem;
+}
  
 form > button[type="submit"], .btn-submit {
     display: block;
@@ -652,10 +663,10 @@ form > button[type="submit"]:hover, .btn-submit:hover {
     background: var(--secondary-dark);
     transform: translateY(-1px);
 }
-form input:required:invalid, form select:required:invalid {
+form input:required:invalid, form select:required:invalid, form textarea:required:invalid {
     border-color: rgb(255, 88, 27);
 }
-form input:required:valid, form select:required:valid {
+form input:required:valid, form select:required:valid, form textarea:required:valid {
     border-color: rgb(12, 210, 12);
 }
 /* ================================================
