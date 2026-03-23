@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Admin - Imaginária Imobiliária {% endblock %}
+{% block title %}Admin{% endblock %}
 
 {% block main %}
 <main>
@@ -17,95 +17,134 @@
             </div>
         </div>
     </section>
-    <section class="listings">
-        <div class="listings__header">
+    <section id="formulario" class="general-section-padding alt-section-background">
+        <div class="general-content listings__header">
             <span class="section-label">Formulário</span>
             <h2 class="section-title">Adicionar Imóvel</h2>
         </div>
-        <form action="/admin" method="POST" enctype="multipart/form-data">
-            <input type="text" name="nome" id="nome" placeholder="Nome do imóvel" required>
-            <input type="text" name="descricao" id="descricao" placeholder="Descrição do imóvel" required>
-            <select name="tipo_de_produto" id="tipo_de_produto" required>
-                <option value="">Selecione o tipo do imóvel</option>
-                <option value="APARTAMENTO">Apartamento</option>
-                <option value="CASA">Casa</option>
-                <option value="TERRENO">Terreno</option>
-            </select>
-            <select name="status" id="status" required>
-                <option value="">Selecione o status</option>
-                <option value="ENTREGUE">Entregue</option>
-                <option value="DISPONIVEL">Disponível</option>
-                <option value="LANCAMENTO">Lançamento</option>
-                <option value="EM_CONSTRUCAO">Em Construção</option>
-                <option value="FUTURO_LANCAMENTO">Futuro Lançamento</option>
-            </select>
-            <label for="esta_visivel">Clientes podem ver esse produto?</label>
-            <input type="checkbox" name="esta_visivel" id="esta_visivel" value="true">
+        <form action="/11_damin_k" method="POST" enctype="multipart/form-data" class="general-content">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.nome(placeholder="Nome do imóvel") }}
+                {{ form.descricao(class="text-area", placeholder="Descrição do Imóvel") }}
+                {{ form.tipo_de_produto(placeholder="Tipo de Produto") }}
+                {{ form.status(placeholder="Status") }}
+                <div class="checkbox-form">
+                    {{ form.esta_visivel.label }}
+                    {{ form.esta_visivel(checked=True) }}
+                </div>
+                <br><br>
+                {{ form.preco_compra(placeholder="Preço de Compra (opcional)") }}
+                {{ form.preco_aluguel(placeholder="Preco de Aluguel (opcional)") }}
+                {{ form.condominio(placeholder="Preço do Condomínio (opcional)") }}
+                {{ form.iptu(placeholder="Preço do IPTU (opcional)") }}
+                <br><br>
+                {{ form.menor_area_em_metros_quadrados(placeholder="Menor Área em metros quadrados") }}
+                {{ form.maior_area_em_metros_quadrados(placeholder="Maior Área em metros quadrados") }}
+                {{ form.menor_quantidade_de_dormitorios(placeholder="Quantidade de Dormitórios do menor produto") }}
+                {{ form.maior_quantidade_de_dormitorios(placeholder="Quantidade de Dormitórios do maior produto") }}
+                <br><br>
+                {{ form.cidade(placeholder="Cidade do Imóvel") }}
+                {{ form.bairro(placeholder="Bairro do Imóvel") }}
+                {{ form.endereco(placeholder="Endereço do Imóvel") }}
+                {{ form.cep(placeholder="CEP do Imóvel") }}
+                <br><br>
+                {{ form.caminho_da_imagem_principal.label }}
+                {{ form.caminho_da_imagem_principal }}
+                {{ form.caminho_da_imagem_de_fachada1.label }}
+                {{ form.caminho_da_imagem_de_fachada1 }}
+                {{ form.caminho_da_imagem_de_fachada2.label }}
+                {{ form.caminho_da_imagem_de_fachada2 }}
+                <br><br>
+                {{ form.caminho_da_imagem_de_area_comum1.label }}
+                {{ form.caminho_da_imagem_de_area_comum1 }}
+                {{ form.descricao_da_area_comum1(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum2.label }}
+                {{ form.caminho_da_imagem_de_area_comum2 }}
+                {{ form.descricao_da_area_comum2(placeholder="Descrição da Área Comum 2") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum3.label }}
+                {{ form.caminho_da_imagem_de_area_comum3 }}
+                {{ form.descricao_da_area_comum3(placeholder="Descrição da Área Comum 3") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum4.label }}
+                {{ form.caminho_da_imagem_de_area_comum4 }}
+                {{ form.descricao_da_area_comum4(placeholder="Descrição da Área Comum 4") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum5.label }}
+                {{ form.caminho_da_imagem_de_area_comum5 }}
+                {{ form.descricao_da_area_comum5(placeholder="Descrição da Área Comum 5") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum6.label }}
+                {{ form.caminho_da_imagem_de_area_comum6 }}
+                {{ form.descricao_da_area_comum6(placeholder="Descrição da Área Comum 6") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum7.label }}
+                {{ form.caminho_da_imagem_de_area_comum7 }}
+                {{ form.descricao_da_area_comum7(placeholder="Descrição da Área Comum 7") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum8.label }}
+                {{ form.caminho_da_imagem_de_area_comum8 }}
+                {{ form.descricao_da_area_comum8(placeholder="Descrição da Área Comum 8") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum9.label }}
+                {{ form.caminho_da_imagem_de_area_comum9 }}
+                {{ form.descricao_da_area_comum9(placeholder="Descrição da Área Comum 9") }}
+                <br>
+                {{ form.caminho_da_imagem_de_area_comum10.label }}
+                {{ form.caminho_da_imagem_de_area_comum10 }}
+                {{ form.descricao_da_area_comum10(placeholder="Descrição da Área Comum 10") }}
+                <br><br>
+                {{ form.caminho_da_imagem_da_planta1.label }}
+                {{ form.caminho_da_imagem_da_planta1 }}
+                {{ form.descricao_da_planta1(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta2.label }}
+                {{ form.caminho_da_imagem_da_planta2 }}
+                {{ form.descricao_da_planta2(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta3.label }}
+                {{ form.caminho_da_imagem_da_planta3 }}
+                {{ form.descricao_da_planta3(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta4.label }}
+                {{ form.caminho_da_imagem_da_planta4 }}
+                {{ form.descricao_da_planta4(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta5.label }}
+                {{ form.caminho_da_imagem_da_planta5 }}
+                {{ form.descricao_da_planta5(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta6.label }}
+                {{ form.caminho_da_imagem_da_planta6 }}
+                {{ form.descricao_da_planta6(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta7.label }}
+                {{ form.caminho_da_imagem_da_planta7 }}
+                {{ form.descricao_da_planta7(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta8.label }}
+                {{ form.caminho_da_imagem_da_planta8 }}
+                {{ form.descricao_da_planta8(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta9.label }}
+                {{ form.caminho_da_imagem_da_planta9 }}
+                {{ form.descricao_da_planta9(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.caminho_da_imagem_da_planta10.label }}
+                {{ form.caminho_da_imagem_da_planta10 }}
+                {{ form.descricao_da_planta10(placeholder="Descrição da Área Comum 1") }}
+                <br>
+                {{ form.submit(class="btn-submit") }}
+            </p>
             
-            <input type="number" step="0.01" name="preco_compra" id="preco_compra" placeholder="Preço de Compra (opcional)" min="0">
-            <input type="number" step="0.01" name="preco_aluguel" id="preco_aluguel" placeholder="Preço de Aluguel (opcional)" min="0">
-            <input type="number" step="0.01" name="condominio" id="condominio" placeholder="Preço do Condomínio (opcional)" min="0">
-            <input type="number" step="0.01" name="iptu" id="iptu" placeholder="Preço do IPTU (opcional)" min="0">
-
-            <input type="number" name="menor_area_em_metros_quadrados" id="menor_area_em_metros_quadrados" placeholder="Menor Área em Metros Quadrados (area do menor apartamento)" min="0" required>
-            <input type="number" name="maior_area_em_metros_quadrados" id="maior_area_em_metros_quadrados" placeholder="Maior Área em Metros Quadrados (area do maior apartamento)" min="0" required>
-            <input type="number" name="menor_quantidade_de_quartos" id="menor_quantidade_de_quartos" placeholder="Menor Quantidade de Quartos (quantidade de quartos do menor apartamento)" min="0" default="0" required>
-            <input type="number" name="maior_quantidade_de_quartos" id="maior_quantidade_de_quartos" placeholder="Maior Quantidade de Quartos (quantidade de quartos do maior apartamento)" min="0" default="0" required>
-
-            <input type="text" name="cidade" id="cidade" placeholder="Cidade do imóvel" required>
-            <input type="text" name="bairro" id="bairro" placeholder="Bairro do imóvel" required>
-            <input type="text" name="endereco" id="endereco" placeholder="Endereço do imóvel" required>
-            <input type="text" name="cep" id="cep" placeholder="CEP do imóvel" required>
-
-            <br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_principal" id="caminho_da_imagem_principal" placeholder="Caminho da imagem principal do imóvel" required><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_fachada1" id="caminho_da_imagem_de_fachada1" placeholder="Caminho da imagem de fachada 1 do imóvel" required><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_fachada2" id="caminho_da_imagem_de_fachada2" placeholder="Caminho da imagem de fachada 2 do imóvel" required><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum1" id="caminho_da_imagem_de_area_comum1" placeholder="Caminho da imagem de área comum 1 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum1" id="descrição_da_imagem_de_area_comum1" placeholder="Descrição da imagem de área comum 1 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum2" id="caminho_da_imagem_de_area_comum2" placeholder="Caminho da imagem de área comum 2 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum2" id="descrição_da_imagem_de_area_comum2" placeholder="Descrição da imagem de área comum 2 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum3" id="caminho_da_imagem_de_area_comum3" placeholder="Caminho da imagem de área comum 3 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum3" id="descrição_da_imagem_de_area_comum3" placeholder="Descrição da imagem de área comum 3 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum4" id="caminho_da_imagem_de_area_comum4" placeholder="Caminho da imagem de área comum 4 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum4" id="descrição_da_imagem_de_area_comum4" placeholder="Descrição da imagem de área comum 4 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum5" id="caminho_da_imagem_de_area_comum5" placeholder="Caminho da imagem de área comum 5 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum5" id="descrição_da_imagem_de_area_comum5" placeholder="Descrição da imagem de área comum 5 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum6" id="caminho_da_imagem_de_area_comum6" placeholder="Caminho da imagem de área comum 6 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum6" id="descrição_da_imagem_de_area_comum6" placeholder="Descrição da imagem de área comum 6 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum7" id="caminho_da_imagem_de_area_comum7" placeholder="Caminho da imagem de área comum 7 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum7" id="descrição_da_imagem_de_area_comum7" placeholder="Descrição da imagem de área comum 7 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum8" id="caminho_da_imagem_de_area_comum8" placeholder="Caminho da imagem de área comum 8 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum8" id="descrição_da_imagem_de_area_comum8" placeholder="Descrição da imagem de área comum 8 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum9" id="caminho_da_imagem_de_area_comum9" placeholder="Caminho da imagem de área comum 9 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum9" id="descrição_da_imagem_de_area_comum9" placeholder="Descrição da imagem de área comum 9 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_imagem_de_area_comum10" id="caminho_da_imagem_de_area_comum10" placeholder="Caminho da imagem de área comum 10 do imóvel">
-            <input type="text" name="descrição_da_imagem_de_area_comum10" id="descrição_da_imagem_de_area_comum10" placeholder="Descrição da imagem de área comum 10 do imóvel"><br>
-
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa1" id="caminho_da_planta_baixa1" placeholder="Caminho da planta baixa 1 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa1" id="descrição_da_planta_baixa1" placeholder="Descrição da planta baixa 1 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa2" id="caminho_da_planta_baixa2" placeholder="Caminho da planta baixa 2 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa2" id="descrição_da_planta_baixa2" placeholder="Descrição da planta baixa 2 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa3" id="caminho_da_planta_baixa3" placeholder="Caminho da planta baixa 3 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa3" id="descrição_da_planta_baixa3" placeholder="Descrição da planta baixa 3 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa4" id="caminho_da_planta_baixa4" placeholder="Caminho da planta baixa 4 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa4" id="descrição_da_planta_baixa4" placeholder="Descrição da planta baixa 4 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa5" id="caminho_da_planta_baixa5" placeholder="Caminho da planta baixa 5 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa5" id="descrição_da_planta_baixa5" placeholder="Descrição da planta baixa 5 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa6" id="caminho_da_planta_baixa6" placeholder="Caminho da planta baixa 6 do imóvel">
-            <input type="text"  name="descrição_da_planta_baixa6" id="descrição_da_planta_baixa6" placeholder="Descrição da planta baixa 6 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa7" id="caminho_da_planta_baixa7" placeholder="Caminho da planta baixa 7 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa7" id="descrição_da_planta_baixa7" placeholder="Descrição da planta baixa 7 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa8" id="caminho_da_planta_baixa8" placeholder="Caminho da planta baixa 8 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa8" id="descrição_da_planta_baixa8" placeholder="Descrição da planta baixa 8 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa9" id="caminho_da_planta_baixa9" placeholder="Caminho da planta baixa 9 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa9" id="descrição_da_planta_baixa9" placeholder="Descrição da planta baixa 9 do imóvel"><br>
-            <input type="file" accept="image/*" name="caminho_da_planta_baixa10" id="caminho_da_planta_baixa10" placeholder="Caminho da planta baixa 10 do imóvel">
-            <input type="text" name="descrição_da_planta_baixa10" id="descrição_da_planta_baixa10" placeholder="Descrição da planta baixa 10 do imóvel"><br>
-
-            <button type="submit">Adicionar Imóvel</button>
         </form>
-        {% include 'partials/_listagem_imoveis.html' %}
     </section>
+    {% include 'partials/_listagem_imoveis.html' %}
+    {% include 'partials/_map_section.html' %}
 </main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="static/js/maps.js"></script>
 {% endblock %}
