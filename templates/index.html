@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}ricardo{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block main %}
 <main>
     <!-- ===== HERO ===== -->
     <section class="hero">
         <div class="hero__bg">
-        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80" alt="Imóvel de luxo" class="hero__img" />
-        <div class="hero__overlay"></div>
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80" alt="Imóvel de luxo" class="hero__img" />
+            <div class="hero__overlay"></div>
         </div>
         <div class="hero__content">
             <p class="hero__eyebrow">Exclusividade em cada detalhe</p>
@@ -22,22 +22,30 @@
     </section>
  
     <!-- ===== SOBRE ===== -->
-    <section id="sobre" class="about">
-        <div class="about__inner">
-            <div class="about__text">
+    <section id="sobre" class="general-section-padding alt-section-background">
+        <div class="general-content-with-two-columns about__inner">
+            <div>
                 <span class="section-label">Sobre nós</span>
                 <h2 class="section-title">Há mais de 20 anos<br/>construindo histórias</h2>
                 <p>A <strong>Nobre Imóveis</strong> nasceu da paixão por conectar pessoas aos lugares onde os melhores momentos de suas vidas acontecem. Nosso portfólio reúne propriedades cuidadosamente selecionadas — apartamentos modernos, casas amplas e coberturas exclusivas — em localidades privilegiadas de São Paulo.</p>
                 <p>Trabalhamos com transparência, agilidade e um atendimento personalizado que transforma a busca pelo imóvel ideal numa experiência tranquila e segura.</p>
-                <div class="about__stats">
-                    <div class="stat"><span class="stat__number">+800</span><span class="stat__label">Imóveis vendidos</span></div>
-                    <div class="stat"><span class="stat__number">98%</span><span class="stat__label">Clientes satisfeitos</span></div>
-                    <div class="stat"><span class="stat__number">20+</span><span class="stat__label">Anos de mercado</span></div>
+                <div class="square-stats">
+                    <div>
+                        <span class="square-stats-title">+800</span>
+                        <span class="square-stats-text">Imóveis vendidos</span>
+                    </div>
+                    <div>
+                        <span class="square-stats-title">98%</span>
+                        <span class="square-stats-text">Clientes satisfeitos</span>
+                    </div>
+                    <div>
+                        <span class="square-stats-title">20+</span>
+                        <span class="square-stats-text">Anos de mercado</span></div>
                 </div>
             </div>
-            <div class="about__image-stack">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Casa de luxo" class="about__img about__img--back" />
-                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Sala moderna" class="about__img about__img--front" />
+            <div class="image-stack">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Casa de luxo" class="image-stack--back" />
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Sala moderna" class="image-stack--front" />
             </div>
         </div>
     </section>
@@ -46,24 +54,9 @@
     {% include 'partials/_listagem_imoveis.html' %}
  
     <!-- ===== MAPA ===== -->
-    <section id="mapa" class="map-section">
-        <div class="map-section__header">
-            <span class="section-label">Localização</span>
-            <h2 class="section-title">Encontre no mapa</h2>
-            <p>Explore nossas propriedades diretamente no mapa. Clique em um marcador para ver detalhes.</p>
-        </div>
-        <div class="map-section__container">
-            <div id="map"></div>
-            <div id="map-overlay">Pressione Ctrl enquanto rola a tela para aplicar zoom no mapa</div>
-            <div class="map-legend">
-                <div class="legend-item"><span class="legend-dot legend-dot--apartamento"></span>Apartamento</div>
-                <div class="legend-item"><span class="legend-dot legend-dot--casa"></span>Casa</div>
-                <div class="legend-item"><span class="legend-dot legend-dot--cobertura"></span>Cobertura</div>
-            </div>
-        </div>
-    </section>
+    {% include 'partials/_map_section.html' %}
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="static/js/index.js"></script>
+<script src="static/js/maps.js"></script>
 {% endblock %}

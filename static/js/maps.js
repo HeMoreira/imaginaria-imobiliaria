@@ -42,7 +42,7 @@ mapDiv.addEventListener('wheel', function(e) {
 const iconBlue = L.divIcon({
     // iconUrl: 'path-to-image.png'
     className: 'bi bi-geo-alt-fill marker-color-blue',
-    iconSize: [33, 33],
+    iconSize: [32.5, 32.5],
     iconAnchor: [16, 24]
 });
 const iconGreen = L.divIcon({
