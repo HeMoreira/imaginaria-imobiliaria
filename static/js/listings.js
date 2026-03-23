@@ -13,6 +13,7 @@ let timer = 0;
 
 cards.forEach(card => {
     card.style.display = "block";
+    moverSlide()
 });
 
 buttons.forEach(button => {
