@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, abort
 from flask_login import LoginManager, login_required, login_user
 from models import db
 from models import Imovel, ImagensImovel, PlantasImovel, Admin
@@ -30,11 +30,13 @@ def login():
         admin = Admin.query.filter_by(username=form.username.data).first()
         if admin and admin.check_password(form.password.data):
             login_user(admin)
-            flash("Logado com sucesso!", "sucess")
+            flash("Logado com sucesso!", "success")
             return redirect(url_for('admin'))
         else:
+            flash("Senha ou usuário incorretos. X tentativas restantes", "warning")
             return render_template('login.html', form=form)
     else:
+        flash("Senha ou usuário incorretos. X tentativas restantes", "warning")
         return render_template('login.html', form=form)
 
 @app.route("/11_damin_k", methods=['POST', 'GET'])
@@ -141,14 +143,14 @@ def admin():
         novo_imovel.imagens_do_produto.append(imagens_novo_imovel)
         novo_imovel.plantas_do_produto.append(plantas_novo_imovel)
         try:
-            print(novo_imovel)
             db.session.add(novo_imovel)
             db.session.commit()
+            flash("Imóvel adicionado com sucesso!", "success")
             imoveis = Imovel.query.all()
             return redirect(url_for('admin'))
         except Exception as e:
-            print(e, "\nfail\n")
             db.session.rollback()
+            flash("O Imóvel não foi adicionado!", "error")
             imoveis = Imovel.query.all()
             return render_template('admin.html', mensagem="Erro ao adicionar imóvel", imoveis=imoveis, form=form)
     else:
