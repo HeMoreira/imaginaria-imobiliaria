@@ -1,13 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, abort
 from flask_login import LoginManager, login_required, login_user
+from flask_talisman import Talisman
 from models import db
 from models import Imovel, ImagensImovel, PlantasImovel, Admin
 from utils import salvar_imagens
 from forms import AdminForm, ImovelForm
 from werkzeug.datastructures import CombinedMultiDict
+import config
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'incrediblekeythatwilldefinitelybechangedbeforerunningintoproduction'
+talisman = Talisman(app, content_security_policy=config.CSP_CONFIG)
+app.config['SECRET_KEY'] = config.SECRET_KEY
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///imaginariaimobiliaria.db'
@@ -15,8 +18,9 @@ db.init_app(app)
 
 @login_manager.user_loader
 def load_user(admin_id):
-    print(db.session.get(Admin, int(admin_id)))
     return db.session.get(Admin, int(admin_id))
+
+
 
 @app.route("/", methods=['GET'])
 def index():
@@ -36,7 +40,6 @@ def login():
             flash("Senha ou usuário incorretos. X tentativas restantes", "warning")
             return render_template('login.html', form=form)
     else:
-        flash("Senha ou usuário incorretos. X tentativas restantes", "warning")
         return render_template('login.html', form=form)
 
 @app.route("/11_damin_k", methods=['POST', 'GET'])
@@ -159,6 +162,6 @@ def admin():
         return render_template('admin.html', imoveis=imoveis, form=form)
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #     db.create_all()
     app.run(debug=True)
