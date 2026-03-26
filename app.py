@@ -32,6 +32,12 @@ def unauthorized():
     return abort(404)
 limiter = Limiter(get_remote_address, app=app)
 
+@app.before_request
+def enforce_login_globally():
+    public_endpoints = ['login', 'index', 'static']
+    if request.endpoint not in public_endpoints and not current_user.is_authenticated:
+        return abort(404)
+
 # TODO: implementar ProxyFix antes de colocar em produção
 # app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
@@ -67,7 +73,6 @@ def login():
         return render_template('login.html', form=form)
 
 @app.route("/11_damin_k", methods=['POST', 'GET'])
-@login_required
 def admin():
     form = ImovelForm(CombinedMultiDict((request.form, request.files)))
     if request.method == 'POST' and form.validate():
