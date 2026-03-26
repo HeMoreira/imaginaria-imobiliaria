@@ -3,12 +3,15 @@ from flask_login import LoginManager, login_required, login_user
 from flask_talisman import Talisman
 from models import db
 from models import Imovel, ImagensImovel, PlantasImovel, Admin
-from utils import salvar_imagens
+from utils import obter_tentativas_de_login, salvar_imagens, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login
 from logging_utils import init_app_logging
 from forms import AdminForm, ImovelForm
 from werkzeug.datastructures import CombinedMultiDict
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 # from werkzeug.middleware.proxy_fix import ProxyFix
 import config
+
 
 app = Flask(__name__)
 init_app_logging(app)
@@ -27,6 +30,7 @@ def load_user(admin_id):
 def unauthorized():
     app.logger.warning('= tentativa de acessar painel de admin sem login =')
     return abort(404)
+limiter = Limiter(get_remote_address, app=app)
 
 # TODO: implementar ProxyFix antes de colocar em produção
 # app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
@@ -40,20 +44,26 @@ def index():
 
 @app.route("/11_login_k", methods=['POST', 'GET'])
 def login():
+    ip = get_remote_address()
+    if esta_bloqueado(ip):
+        app.logger.warning('^ Ip foi bloqueado por 15 minutos após múltiplas tentativas de login')
+        return abort(404)
     form = AdminForm(request.form)
     if request.method == 'POST':
         if form.validate():
             admin = Admin.query.filter_by(username=form.username.data).first()
             if admin and admin.check_password(form.password.data):
                 login_user(admin)
+                zerar_contador_de_tentativas_de_login(ip)
                 app.logger.info('\n ^ login bem sucedido')
                 flash("Logado com sucesso!", "success")
                 return redirect(url_for('admin'))
-        app.logger.warning('\n ^ login mal sucedido')
-        flash("Senha ou usuário incorretos. X tentativas restantes", "warning")
-        return render_template('login.html', form=form)
+        app.logger.warning('^ login mal sucedido')
+        aumentar_contador_de_tentativas_de_login(ip)
+        flash(f"Senha ou usuário incorretos. {3-obter_tentativas_de_login(ip)} tentativas restantes", "warning")
+        return redirect(url_for('login'))
     else:
-        app.logger.info('\n ^ página de login foi acessada')
+        app.logger.info('^ página de login foi acessada')
         return render_template('login.html', form=form)
 
 @app.route("/11_damin_k", methods=['POST', 'GET'])
@@ -162,18 +172,18 @@ def admin():
         try:
             db.session.add(novo_imovel)
             db.session.commit()
-            app.logger.info('\n ^ adição de imóvel bem sucedida')
+            app.logger.info('^ adição de imóvel bem sucedida')
             flash("Imóvel adicionado com sucesso!", "success")
             imoveis = Imovel.query.all()
             return redirect(url_for('admin'))
         except Exception as e:
             db.session.rollback()
-            app.logger.info('\n ^ adição de imóvel mal sucedido')
+            app.logger.info('^ adição de imóvel mal sucedido')
             flash("O Imóvel não foi adicionado!", "error")
             imoveis = Imovel.query.all()
             return render_template('admin.html', mensagem="Erro ao adicionar imóvel", imoveis=imoveis, form=form)
     else:
-        app.logger.info('\n ^ painel de admin foi acessado')
+        app.logger.info('^ painel de admin foi acessado')
         print(f"Erros de validação: {form.errors}")
         imoveis = Imovel.query.all()
         return render_template('admin.html', imoveis=imoveis, form=form)
