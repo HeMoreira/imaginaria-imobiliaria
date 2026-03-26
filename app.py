@@ -10,16 +10,17 @@ from werkzeug.datastructures import CombinedMultiDict
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 # from werkzeug.middleware.proxy_fix import ProxyFix
-import config
+from config import Config
 
 
 app = Flask(__name__)
 init_app_logging(app)
-talisman = Talisman(app, content_security_policy=config.CSP_CONFIG)
-app.config['SECRET_KEY'] = config.SECRET_KEY
+app.config.from_object(Config)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///imaginariaimobiliaria.db'
+talisman = Talisman(app, content_security_policy=Config.CSP_CONFIG)
+
 db.init_app(app)
 
 @login_manager.user_loader
