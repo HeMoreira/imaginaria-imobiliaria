@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, current_app, abort
-from flask_login import LoginManager, login_required, login_user
+from flask_login import LoginManager, login_required, login_user, current_user
 from flask_talisman import Talisman
 from models import db
 from models import Imovel, ImagensImovel, PlantasImovel, Admin
