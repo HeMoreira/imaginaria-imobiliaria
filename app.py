@@ -185,12 +185,13 @@ def admin():
         except Exception as e:
             db.session.rollback()
             app.logger.info('^ adição de imóvel mal sucedido')
-            flash("O Imóvel não foi adicionado!", "error")
+            flash("O Imóvel não foi adicionado! Verifique e corrija os campos com informações inválidas", "error")
             imoveis = Imovel.query.all()
             return render_template('admin.html', mensagem="Erro ao adicionar imóvel", imoveis=imoveis, form=form)
     else:
         app.logger.info('^ painel de admin foi acessado')
         print(f"Erros de validação: {form.errors}")
+        flash("O formulário não foi preenchido corretamente... Verifique e corrija os campos com informações inválidas", "error")
         imoveis = Imovel.query.all()
         return render_template('admin.html', imoveis=imoveis, form=form)
 

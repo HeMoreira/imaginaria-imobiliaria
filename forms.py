@@ -20,8 +20,8 @@ class AdminForm(FlaskForm):
     submit = SubmitField("Confirmar")
 
 class ImovelForm(FlaskForm):
-    nome = StringField('Nome do Imóvel', [validators.DataRequired()])
-    descricao = TextAreaField('Descrição do Imóvel', [validators.DataRequired()], render_kw={"rows":5})
+    nome = StringField('Nome do Imóvel', [validators.DataRequired(), validators.Length(min=5, max=50)])
+    descricao = TextAreaField('Descrição do Imóvel', [validators.DataRequired(), validators.Length(min=1, max=500)], render_kw={"rows":5})
     tipo_de_produto = SelectField('Tipo de Produto', choices=[("", "Selecione o Tipo do Imóvel")] + [(tipo.name, tipo.value) for tipo in TipoDeProduto], validators=[validators.DataRequired()])
     status = SelectField('Status', choices=[("", "Selecione o Status do Imóvel")] + [(status.name, status.value) for status in Status], validators=[validators.DataRequired()])
     esta_visivel = BooleanField('O produto deve ser visível para o usuário?', default=True)
@@ -43,7 +43,7 @@ class ImovelForm(FlaskForm):
     ])
     cidade = StringField('Cidade', [validators.DataRequired(), validators.Length(max=100)])
     bairro = StringField('Bairro', [validators.DataRequired(), validators.Length(max=100)])
-    endereco = StringField('Endereço', [validators.DataRequired(), validators.Length(max=100)])
+    endereco = StringField('Endereço', [validators.DataRequired(), validators.Length(max=255)])
     cep = StringField('CEP', [validators.DataRequired(), validators.Length(max=10)])
 
     caminho_da_imagem_principal = FileField('Imagem Principal', [FileRequired()])
