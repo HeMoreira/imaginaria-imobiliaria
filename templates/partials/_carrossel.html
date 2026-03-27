@@ -1,0 +1,23 @@
+<section id="imoveis" class="general-section-padding general-section-background">
+    <div class="general-content">
+        <span class="section-label">{% block spantitle %}{% endblock %}</span>
+        <h2 class="section-title">{% block title %}{% endblock %}</h2>
+        <div class="filter-buttons-container">
+            <button class="filter-btn active" data-filter="ALL">Todos</button>
+            <button class="filter-btn" data-filter="APARTAMENTO">Apartamentos</button>
+            <button class="filter-btn" data-filter="CASA">Casas</button>
+            <button class="filter-btn" data-filter="TERRENO">Terrenos</button>
+        </div>
+    </div>
+    <div class="carousel">
+        <div class="carousel-slides">
+            {% block cardsarea %}{% endblock %}
+        </div>
+        <button class="carousel-btn--left">&#8592;</button>
+        <button class="carousel-btn--right">&#8594;</button>
+    </div>
+</section>
+<script>
+    const filtro_listagem = "{{ filtro_listagem }}";
+</script>
+<script src="static/js/listings.js"></script>
