@@ -25,6 +25,7 @@ class Imovel(db.Model):
     tipo_de_produto = db.Column(db.Enum(TipoDeProduto), nullable=False)
     status = db.Column(db.Enum(Status), nullable=False)
     esta_visivel = db.Column(db.Boolean, default=True)
+    esta_em_destaque = db.Column(db.Boolean, default=False)
 
     preco_compra = db.Column(db.Numeric(15, 2), nullable=True)
     preco_aluguel = db.Column(db.Numeric(12, 2), nullable=True)

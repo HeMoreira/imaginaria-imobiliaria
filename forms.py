@@ -31,6 +31,7 @@ class ImovelForm(FlaskForm):
     tipo_de_produto = SelectField('Tipo de Produto', choices=[("", "Selecione o Tipo do Imóvel")] + [(tipo.name, tipo.value) for tipo in TipoDeProduto], validators=[validators.DataRequired()])
     status = SelectField('Status', choices=[("", "Selecione o Status do Imóvel")] + [(status.name, status.value) for status in Status], validators=[validators.DataRequired()])
     esta_visivel = BooleanField('O produto deve ser visível para o usuário?', default=True)
+    esta_em_destaque = BooleanField('Deseja classificar o produto como destaque?', default=False)
     preco_compra = DecimalField('Preço de Compra', [validators.Optional()], places=2)
     preco_aluguel = DecimalField('Preço de Aluguel', [validators.Optional()], places=2)
     condominio = DecimalField('Condomínio', [validators.Optional()], places=2)

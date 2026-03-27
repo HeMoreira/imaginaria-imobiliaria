@@ -4,6 +4,7 @@ from flask_talisman import Talisman
 from models import db
 from models import Imovel, ImagensImovel, ImagemComDescricao, Admin
 from utils import obter_tentativas_de_login, salvar_imagens, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login
+from flask_migrate import Migrate
 from logging_utils import init_app_logging
 from forms import AdminForm, ImovelForm
 from werkzeug.datastructures import CombinedMultiDict
@@ -21,6 +22,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 talisman = Talisman(app, content_security_policy=Config.CSP_CONFIG)
 
+migrate = Migrate(app, db)
 db.init_app(app)
 
 @login_manager.user_loader
@@ -104,6 +106,7 @@ def admin():
                 tipo_de_produto=form.tipo_de_produto.data,
                 status=form.status.data,
                 esta_visivel=form.esta_visivel.data,
+                esta_em_destaque = form.esta_em_destaque.data,
                 preco_compra=form.preco_compra.data,
                 preco_aluguel=form.preco_aluguel.data,
                 condominio=form.condominio.data,

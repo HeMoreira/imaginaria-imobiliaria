@@ -6,9 +6,11 @@
 {% block cardsarea %}
     {% if imoveis != [] %}
         {% for imovel in imoveis %}
-            {% with imovel=imovel %}
-                {% include 'partials/_novo_card.html' %}
-            {% endwith %}
+            {% if imovel.esta_em_destaque == True %}
+                {% with imovel=imovel %}
+                    {% include 'partials/_novo_card.html' %}
+                {% endwith %}
+            {% endif %}
         {% endfor %}
         {% with imovel=imoveis[0] %}
             {% include 'partials/_novo_card.html' %}
