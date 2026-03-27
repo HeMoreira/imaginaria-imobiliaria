@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-bg">
-        {% for imagem in imovel.imagens_do_produto %}
+        {% for imagem in imovel.imagens_principais_do_produto %}
         <img class="card-img" src="{{ imagem.caminho_da_imagem_principal }}" alt="Imagem de placeholder" loading="lazy" />
         {% endfor %}
     </div>

@@ -23,6 +23,7 @@ class Config:
         ],
         'script-src': [
             '\'self\'',
+            'unsafe-hashes'
             'https://cdn.jsdelivr.net',
             'https://code.jquery.com',
             'https://unpkg.com'

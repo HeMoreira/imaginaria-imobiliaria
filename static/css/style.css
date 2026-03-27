@@ -671,27 +671,34 @@ form input[type="file"]:hover {
 form br {
     margin-top: 0.75rem;
 }
- 
-form > button[type="submit"], .btn-submit {
-    display: block;
-    margin-top: 1rem;
-    width: 100%;
-    padding: 0.95rem 2rem;
+.btn-form {
+    margin: 0.5rem 0.5rem 0 0;
+    padding: 0.1rem 0.2rem;
+    width: 200px;
+    font-size: 0.7rem;
     background: var(--secondary-color);
     color: var(--text-light);
     font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
     font-weight: 600;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
     box-shadow: 0 2px 5px var(--shadow-color);
     transition: var(--transition-fast);
 }
-form > button[type="submit"]:hover, .btn-submit:hover {
+.btn-form:hover {
     background: var(--secondary-dark);
+}
+form > button[type="submit"], .btn-submit {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.95rem 2rem;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+form > button[type="submit"]:hover, .btn-submit:hover {
     transform: translateY(-1px);
 }
 form input:required:invalid, form select:required:invalid, form textarea:required:invalid {
