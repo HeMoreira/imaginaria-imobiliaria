@@ -57,87 +57,19 @@
                 {{ form.caminho_da_imagem_de_fachada2.label }}
                 {{ form.caminho_da_imagem_de_fachada2 }}
                 <br><br>
-                {{ form.caminho_da_imagem_de_area_comum1.label }}
-                {{ form.caminho_da_imagem_de_area_comum1 }}
-                {{ form.descricao_da_area_comum1(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum2.label }}
-                {{ form.caminho_da_imagem_de_area_comum2 }}
-                {{ form.descricao_da_area_comum2(placeholder="Descrição da Área Comum 2") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum3.label }}
-                {{ form.caminho_da_imagem_de_area_comum3 }}
-                {{ form.descricao_da_area_comum3(placeholder="Descrição da Área Comum 3") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum4.label }}
-                {{ form.caminho_da_imagem_de_area_comum4 }}
-                {{ form.descricao_da_area_comum4(placeholder="Descrição da Área Comum 4") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum5.label }}
-                {{ form.caminho_da_imagem_de_area_comum5 }}
-                {{ form.descricao_da_area_comum5(placeholder="Descrição da Área Comum 5") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum6.label }}
-                {{ form.caminho_da_imagem_de_area_comum6 }}
-                {{ form.descricao_da_area_comum6(placeholder="Descrição da Área Comum 6") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum7.label }}
-                {{ form.caminho_da_imagem_de_area_comum7 }}
-                {{ form.descricao_da_area_comum7(placeholder="Descrição da Área Comum 7") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum8.label }}
-                {{ form.caminho_da_imagem_de_area_comum8 }}
-                {{ form.descricao_da_area_comum8(placeholder="Descrição da Área Comum 8") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum9.label }}
-                {{ form.caminho_da_imagem_de_area_comum9 }}
-                {{ form.descricao_da_area_comum9(placeholder="Descrição da Área Comum 9") }}
-                <br>
-                {{ form.caminho_da_imagem_de_area_comum10.label }}
-                {{ form.caminho_da_imagem_de_area_comum10 }}
-                {{ form.descricao_da_area_comum10(placeholder="Descrição da Área Comum 10") }}
+                <label for="multiple-image-form">Imagens Adicionais</label>
+                <div id="multiple-image-form">
+                    <button class="btn-form" id="add-new-image" type="button">Adicionar Imagem</button>
+                    <button class="btn-form" id="remove-last-image" type="button">Remover Última Imagem</button>
+                </div>
                 <br><br>
-                {{ form.caminho_da_imagem_da_planta1.label }}
-                {{ form.caminho_da_imagem_da_planta1 }}
-                {{ form.descricao_da_planta1(placeholder="Descrição da Área Comum 1") }}
+                <label for="multiple-plant-form">Imagens de Plantas</label>
+                <div id="multiple-plant-form">
+                    <button class="btn-form" id="add-new-plant" type="button">Adicionar Planta</button>
+                    <button class="btn-form" id="remove-last-plant" type="button">Remover Última Planta</button>
+                </div>
                 <br>
-                {{ form.caminho_da_imagem_da_planta2.label }}
-                {{ form.caminho_da_imagem_da_planta2 }}
-                {{ form.descricao_da_planta2(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta3.label }}
-                {{ form.caminho_da_imagem_da_planta3 }}
-                {{ form.descricao_da_planta3(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta4.label }}
-                {{ form.caminho_da_imagem_da_planta4 }}
-                {{ form.descricao_da_planta4(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta5.label }}
-                {{ form.caminho_da_imagem_da_planta5 }}
-                {{ form.descricao_da_planta5(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta6.label }}
-                {{ form.caminho_da_imagem_da_planta6 }}
-                {{ form.descricao_da_planta6(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta7.label }}
-                {{ form.caminho_da_imagem_da_planta7 }}
-                {{ form.descricao_da_planta7(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta8.label }}
-                {{ form.caminho_da_imagem_da_planta8 }}
-                {{ form.descricao_da_planta8(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta9.label }}
-                {{ form.caminho_da_imagem_da_planta9 }}
-                {{ form.descricao_da_planta9(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.caminho_da_imagem_da_planta10.label }}
-                {{ form.caminho_da_imagem_da_planta10 }}
-                {{ form.descricao_da_planta10(placeholder="Descrição da Área Comum 1") }}
-                <br>
-                {{ form.submit(class="btn-submit") }}
+                {{ form.submit(class="btn-form btn-submit") }}
             </p>
             
         </form>
@@ -148,4 +80,5 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="static/js/maps.js"></script>
+<script src="static/js/new_image_form.js"></script>
 {% endblock %}

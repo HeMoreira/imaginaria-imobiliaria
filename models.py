@@ -41,8 +41,9 @@ class Imovel(db.Model):
     endereco = db.Column(db.String(255), nullable=False)
     cep = db.Column(db.String(10), nullable=False)
 
-    imagens_do_produto = db.relationship('ImagensImovel', backref="imovel", lazy=True, cascade="all, delete-orphan")
-    plantas_do_produto = db.relationship('PlantasImovel', backref="imovel", lazy=True, cascade="all, delete-orphan")
+    imagens_principais_do_produto = db.relationship('ImagensImovel', backref="imovel", lazy=True, cascade="all, delete-orphan")
+    imagens_do_produto = db.relationship('ImagemComDescricao', back_populates='imovel_rel', lazy=True, cascade="all, delete-orphan")
+    plantas_do_produto = db.relationship('ImagemComDescricao', back_populates='imovel_rel', lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"Imóvel(nome='{self.nome}', status='{self.status}')"
@@ -51,61 +52,20 @@ class ImagensImovel(db.Model):
     __tablename__ = 'imagens_imovel'
     id = db.Column(db.Integer, primary_key=True)
     imovel_id = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=False)
-    caminho_da_imagem_principal = db.Column(db.String(100), nullable=False)
-    caminho_da_imagem_de_fachada1 = db.Column(db.String(100), nullable=False)
-    caminho_da_imagem_de_fachada2 = db.Column(db.String(100), nullable=False)
-    caminho_da_imagem_de_area_comum1 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum1 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum2 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum2 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum3 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum3 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum4 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum4 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum5 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum5 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum6 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum6 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum7 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum7 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum8 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum8 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum9 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum9 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_de_area_comum10 = db.Column(db.String(100), nullable=True)
-    descricao_da_area_comum10 = db.Column(db.String(500), nullable=True)
-
-    def __repr__(self):
-        return f"id: {self.id} - id_imovel: {self.imovel_id}"
-
-class PlantasImovel(db.Model):
-    __tablename__ = 'plantas_imovel'
-    id = db.Column(db.Integer, primary_key=True)
-    imovel_id = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=False)
-    caminho_da_imagem_da_planta1 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta1 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta2 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta2 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta3 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta3 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta4 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta4 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta5 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta5 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta6 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta6 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta7 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta7 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta8 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta8 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta9 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta9 = db.Column(db.String(500), nullable=True)
-    caminho_da_imagem_da_planta10 = db.Column(db.String(100), nullable=True)
-    descricao_da_planta10 = db.Column(db.String(500), nullable=True)
+    caminho_da_imagem_principal = db.Column(db.String(255), nullable=False)
+    caminho_da_imagem_de_fachada1 = db.Column(db.String(255), nullable=False)
+    caminho_da_imagem_de_fachada2 = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
         return f"id: {self.id} - id_imovel: {self.imovel_id}"
     
+class ImagemComDescricao(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    imovel_id = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=False)
+    imovel_rel = db.relationship('Imovel', back_populates='imagens_do_produto')
+    caminho = db.Column(db.String(255), nullable=False)
+    descricao = db.Column(db.String(200))
+
 class Admin(db.Model, UserMixin):
     __tablename__ = 'administradores'
     id = db.Column(db.Integer, primary_key=True)
