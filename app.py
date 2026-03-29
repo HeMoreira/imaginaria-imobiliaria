@@ -37,7 +37,7 @@ limiter = Limiter(get_remote_address, app=app)
 
 @app.before_request
 def enforce_login_globally():
-    public_endpoints = ['login', 'index', 'static']
+    public_endpoints = ['login', 'index', 'mostrar_imovel', 'static']
     if request.endpoint not in public_endpoints and not current_user.is_authenticated:
         return abort(404)
 
@@ -74,6 +74,11 @@ def login():
     else:
         app.logger.info('^ página de login foi acessada')
         return render_template('login.html', form=form)
+
+@app.route("/imoveis/<slug_imovel>", methods=['GET'])
+def mostrar_imovel(slug_imovel):
+    imovel = Imovel.query.filter_by(slug=slug_imovel).first_or_404()
+    return render_template('info_imovel.html', imovel=imovel)
 
 @app.route("/11_damin_k", methods=['POST', 'GET'])
 def admin():

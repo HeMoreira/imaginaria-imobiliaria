@@ -2,6 +2,7 @@ from enum import Enum
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from slugify import slugify
 
 db = SQLAlchemy()
 
@@ -21,6 +22,7 @@ class Imovel(db.Model):
     __tablename__ = 'imoveis'
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50), nullable=False)
+    slug = db.Column(db.String(50), nullable=True)
     descricao = db.Column(db.String(500), nullable=False)
     tipo_de_produto = db.Column(db.Enum(TipoDeProduto), nullable=False)
     status = db.Column(db.Enum(Status), nullable=False)
@@ -48,6 +50,11 @@ class Imovel(db.Model):
 
     def __repr__(self):
         return f"Imóvel(nome='{self.nome}', status='{self.status}')"
+    
+    def __init__(self, *args, **kwargs):
+        if not 'slug' in kwargs:
+            kwargs['slug'] = slugify(kwargs.get('nome', ''))
+        super().__init__(*args, **kwargs)
 
 class ImagensImovel(db.Model):
     __tablename__ = 'imagens_imovel'
