@@ -20,10 +20,15 @@ class AdminForm(FlaskForm):
     submit = SubmitField("Confirmar")
 
 class ImagemComContexto(FlaskForm):
-    descricao = StringField('Descrição Curta', [validators.Length(min=5, max=50)])
-    imagem = FileField('Imagem', [
+    imagem = FileField('Imagem Adicional', [
         FileAllowed(['jpg', 'png', 'jpeg'], 'Apenas imagens (.jpg, .png, .jpeg)')
     ])
+    descricao = StringField('Descrição Curta', [validators.Length(max=50)])
+class PlantaComContexto(FlaskForm):
+    imagem = FileField('Planta Baixa', [
+        FileAllowed(['jpg', 'png', 'jpeg'], 'Apenas imagens (.jpg, .png, .jpeg)')
+    ])
+    descricao = StringField('Descrição Curta', [validators.Length(max=50)])
 
 class ImovelForm(FlaskForm):
     nome = StringField('Nome do Imóvel', [validators.DataRequired(), validators.Length(min=5, max=50)])
@@ -57,8 +62,7 @@ class ImovelForm(FlaskForm):
     caminho_da_imagem_de_fachada1 = FileField('Imagem de Fachada 1', [FileRequired()])
     caminho_da_imagem_de_fachada2 = FileField('Imagem de Fachada 2', [FileRequired()])
 
-    lista_de_caminhos_de_imagens_adicionais = FieldList(FormField(ImagemComContexto))
-
-    lista_de_caminhos_de_imagens_de_plantas = FieldList(FormField(ImagemComContexto))
+    lista_de_caminhos_de_imagens_adicionais = FieldList(FormField(ImagemComContexto), min_entries=50)
+    lista_de_caminhos_de_imagens_de_plantas = FieldList(FormField(PlantaComContexto), min_entries=50)
 
     submit = SubmitField("Adicionar imóvel")

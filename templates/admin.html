@@ -63,14 +63,22 @@
                 {{ form.caminho_da_imagem_de_fachada2 }}
                 <br><br>
                 <label for="multiple-image-form">Imagens Adicionais</label>
-                <div id="multiple-image-form"></div>
+                <div id="multiple-image-form">
+                    {% for item in form.lista_de_caminhos_de_imagens_adicionais %}
+                    {{ item(class="form-imagem-adicional") }}
+                    {% endfor %}
+                </div>
                 <div>
                     <button class="btn-form" id="add-new-image" type="button">Adicionar Imagem</button>
                     <button class="btn-form" id="remove-last-image" type="button">Remover Última Imagem</button>
                 </div>
                 <br><br>
                 <label for="multiple-plant-form">Imagens de Plantas</label>
-                <div id="multiple-plant-form"></div>
+                <div id="multiple-plant-form">
+                    {% for item in form.lista_de_caminhos_de_imagens_de_plantas %}
+                    {{ item(class="form-imagem-plantas") }}
+                    {% endfor %}
+                </div>
                 <div>
                     <button class="btn-form" id="add-new-plant" type="button">Adicionar Planta</button>
                     <button class="btn-form" id="remove-last-plant" type="button">Remover Última Planta</button>
