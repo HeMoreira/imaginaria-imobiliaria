@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, cur
 from flask_login import LoginManager, login_required, login_user, current_user
 from flask_talisman import Talisman
 from models import db
-from models import Imovel, ImagensImovel, ImagemComDescricao, Admin
+from models import Imovel, ImagensImovel, ImagemComDescricao, PlantaComDescricao, Admin
 from utils import obter_tentativas_de_login, salvar_imagens, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login
 from flask_migrate import Migrate
 from logging_utils import init_app_logging
@@ -93,9 +93,11 @@ def admin():
             lista_de_imagens = []
             lista_de_plantas = []
             for item in form.lista_de_caminhos_de_imagens_adicionais:
-                lista_de_imagens_principais.append(item.imagem.data)
+                if item.imagem.data != None:
+                    lista_de_imagens.append(item.imagem.data)
             for item in form.lista_de_caminhos_de_imagens_de_plantas:
-                lista_de_plantas.append(item.imagem.data)
+                if item.imagem.data != None:
+                    lista_de_plantas.append(item.imagem.data)
             lista_de_caminhos_das_imagens_principais = salvar_imagens(lista_de_imagens_principais)
             lista_de_caminhos_das_imagens = salvar_imagens(lista_de_imagens)
             lista_de_caminhos_das_plantas = salvar_imagens(lista_de_plantas)
@@ -130,21 +132,24 @@ def admin():
             db.session.flush()
             index_caminho_imagem = 0
             for item in form.lista_de_caminhos_de_imagens_adicionais:
-                nova_img = ImagemComDescricao(
-                    caminho=lista_de_caminhos_das_imagens[index_caminho_imagem],
-                    descricao=item.descricao.data,
-                    imovel_id=novo_imovel.id,
-                )
-                db.session.add(nova_img)
+                if item.imagem.data != None:
+                    nova_img = ImagemComDescricao(
+                        caminho=lista_de_caminhos_das_imagens[index_caminho_imagem],
+                        descricao=item.descricao.data,
+                        imovel_id=novo_imovel.id,
+                    )
+                    db.session.add(nova_img)
+                    index_caminho_imagem+=1
             index_caminho_imagem = 0
-            for item in form.lista_de_caminhos_de_imagens_adicionais:
-                nova_img = ImagemComDescricao(
-                    caminho=lista_de_caminhos_das_plantas[index_caminho_imagem],
-                    descricao=item.descricao.data,
-                    imovel_id=novo_imovel.id,
-                )
-                db.session.add(nova_img)
-            
+            for item in form.lista_de_caminhos_de_imagens_de_plantas:
+                if item.imagem.data != None:
+                    nova_img = PlantaComDescricao(
+                        caminho=lista_de_caminhos_das_plantas[index_caminho_imagem],
+                        descricao=item.descricao.data,
+                        imovel_id=novo_imovel.id,
+                    )
+                    db.session.add(nova_img)
+                    index_caminho_imagem+=1
             try:
                 db.session.add(novo_imovel)
                 db.session.commit()
@@ -161,11 +166,11 @@ def admin():
         else:
             app.logger.info('^ adição de imóvel mal sucedido')
             flash("O Imóvel não foi adicionado! Verifique e corrija os campos com informações inválidas", "error")
+            print(f"Erros de validação: {form.errors}")
             imoveis = Imovel.query.all()
             return render_template('admin.html', mensagem="Erro ao adicionar imóvel", imoveis=imoveis, form=form)
     else:
         app.logger.info('^ painel de admin foi acessado')
-        print(f"Erros de validação: {form.errors}")
         imoveis = Imovel.query.all()
         return render_template('admin.html', imoveis=imoveis, form=form)
 

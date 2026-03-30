@@ -8,10 +8,10 @@ db = SQLAlchemy()
 
 class Status(Enum):
     ENTREGUE = "ENTREGUE"
-    DISPONIVEL = "DISPONIVEL"
-    LANCAMENTO = "LANCAMENTO"
-    FUTURO_LANCAMENTO = "FUTURO_LANCAMENTO"
-    EM_CONSTRUCAO = "EM_CONSTRUCAO"
+    DISPONIVEL = "DISPONÍVEL"
+    LANCAMENTO = "LANÇAMENTO"
+    FUTURO_LANCAMENTO = "FUTURO LANÇAMENTO"
+    EM_CONSTRUCAO = "EM CONSTRUÇÃO"
 
 class TipoDeProduto(Enum):
     APARTAMENTO = "APARTAMENTO"
@@ -45,8 +45,8 @@ class Imovel(db.Model):
     cep = db.Column(db.String(10), nullable=False)
 
     imagens_principais_do_produto = db.relationship('ImagensImovel', backref="imovel", lazy=True, cascade="all, delete-orphan")
-    imagens_do_produto = db.relationship('ImagemComDescricao', back_populates='imovel_rel', lazy=True, cascade="all, delete-orphan")
-    plantas_do_produto = db.relationship('ImagemComDescricao', back_populates='imovel_rel', lazy=True, cascade="all, delete-orphan")
+    imagens_do_produto = db.relationship('ImagemComDescricao', back_populates='imovel_rel_imagem', lazy=True, cascade="all, delete-orphan")
+    plantas_do_produto = db.relationship('PlantaComDescricao', back_populates='imovel_rel_planta', lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"Imóvel(nome='{self.nome}', status='{self.status}')"
@@ -70,9 +70,16 @@ class ImagensImovel(db.Model):
 class ImagemComDescricao(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     imovel_id = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=False)
-    imovel_rel = db.relationship('Imovel', back_populates='imagens_do_produto')
+    imovel_rel_imagem = db.relationship('Imovel', back_populates='imagens_do_produto')
     caminho = db.Column(db.String(255), nullable=False)
-    descricao = db.Column(db.String(200))
+    descricao = db.Column(db.String(50))
+
+class PlantaComDescricao(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    imovel_id = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=False)
+    imovel_rel_planta = db.relationship('Imovel', back_populates='plantas_do_produto')
+    caminho = db.Column(db.String(255), nullable=False)
+    descricao = db.Column(db.String(50))
 
 class Admin(db.Model, UserMixin):
     __tablename__ = 'administradores'
