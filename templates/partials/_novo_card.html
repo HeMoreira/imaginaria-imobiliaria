@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-bg">
         {% for imagem in imovel.imagens_principais_do_produto %}
-        <img class="card-img" src="{{ imagem.caminho_da_imagem_principal }}" alt="Imagem de placeholder" loading="lazy" />
+        <img class="card-img" src="{{ url_for('static', filename=imagem.caminho_da_imagem_principal) }}" alt="Imagem de placeholder" loading="lazy" />
         {% endfor %}
     </div>
     <span class="card-type" data-category="{{ imovel.tipo_de_produto.value }}">{{ imovel.tipo_de_produto.value }}</span>
@@ -9,7 +9,7 @@
         <h3 class="card-name">{{ imovel.nome }}</h3>
         <p class="card-location">{{ imovel.bairro }}</p>
         <div class="card-footer">
-            <a class="card-info-redirect" href="">Ver Imóvel</a>
+            <a class="card-info-redirect" href="{{ url_for('mostrar_imovel', slug_imovel=imovel.slug) }}">Ver Imóvel</a>
         </div>
     </div>
 </div>
