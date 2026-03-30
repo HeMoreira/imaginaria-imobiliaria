@@ -14,11 +14,11 @@
             <h1 class="hero__title">Painel de<br/><em>Administração</em></h1>
             <div class="hero__actions">
                 <a href="#imoveis" class="btn btn--primary">Ver Imóveis</a>
-                <a href="#formulario" class="btn btn--ghost">Novo Imóvel</a>
+                <a href="#sobre" class="btn btn--ghost">Novo Imóvel</a>
             </div>
         </div>
     </section>
-    <section id="formulario" class="general-section-padding alt-section-background">
+    <section id="sobre" class="general-section-padding alt-section-background">
         <div class="general-content listings__header">
             <span class="section-label">Formulário</span>
             <h2 class="section-title">Adicionar Imóvel</h2>
@@ -37,7 +37,7 @@
                 <br>
                 <div class="checkbox-form">
                     {{ form.esta_em_destaque.label }}
-                    {{ form.esta_em_destaque(checked=True) }}
+                    {{ form.esta_em_destaque(checked=False) }}
                 </div>
                 <br><br>
                 {{ form.preco_compra(placeholder="Preço de Compra (opcional)") }}
@@ -63,7 +63,7 @@
                 {{ form.caminho_da_imagem_de_fachada2 }}
                 <br><br>
                 <label for="multiple-image-form">Imagens Adicionais</label>
-                <div id="multiple-image-form">
+                <div id="multiple-image-form" class="general-list-with-adaptable-columns">
                     {% for item in form.lista_de_caminhos_de_imagens_adicionais %}
                     {{ item(class="form-imagem-adicional") }}
                     {% endfor %}
@@ -74,7 +74,7 @@
                 </div>
                 <br><br>
                 <label for="multiple-plant-form">Imagens de Plantas</label>
-                <div id="multiple-plant-form">
+                <div id="multiple-plant-form" class="general-list-with-adaptable-columns">
                     {% for item in form.lista_de_caminhos_de_imagens_de_plantas %}
                     {{ item(class="form-imagem-plantas") }}
                     {% endfor %}
