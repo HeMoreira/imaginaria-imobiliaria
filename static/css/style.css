@@ -74,6 +74,13 @@ p strong {
     color: var(--text-dark);
     font-weight: 500;
 }
+ul {
+    list-style-type: none;
+}
+ul li::before {
+    content: "→";
+    margin-right: 8px;
+}
 
 /* ================================================
    GENERAL CLASSES
@@ -101,6 +108,12 @@ p strong {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
+    align-items: center;
+}
+.general-image-list-with-adaptable-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
     align-items: center;
 }
 .general-content-padding {
@@ -463,7 +476,7 @@ p strong {
 .carousel-btn--right { right: 10px; }
 
 /* ── CARDS ── */
-.card {
+.card, .alt-card {
     flex: 0 0 31.2%;
     display: block;
     max-width: 100%;
@@ -471,9 +484,14 @@ p strong {
     border-radius: 6px;
     overflow: hidden;
     position: relative;
-    aspect-ratio: 3 / 4;
     box-shadow: 0 0px 15px var(--shadow-color);
     transition: var(--transition-base)
+}
+.card {
+    aspect-ratio: 3 / 4;
+}
+.alt-card {
+    aspect-ratio: 4 / 3;
 }
 .card:hover {
     transform: translateY(-4px);
@@ -842,6 +860,7 @@ form input:required:valid, form select:required:valid, form textarea:required:va
     .image-stack { height: 450px; }
     .footer__inner { grid-template-columns: 1fr; gap: 2rem; }
     .card { flex: 0 0 49%; }
+    .general-image-list-with-adaptable-columns { grid-template-columns: 1fr 1fr }
     #map { height: 600px; }
     #map-overlay { height: 600px; }
 }
@@ -853,6 +872,7 @@ form input:required:valid, form select:required:valid, form textarea:required:va
     .general-section-padding { padding: 5rem 1.5rem; }
     .listings { padding: 5rem 1.5rem; }
     .map-section-header { padding: 5rem 1.5rem 2rem; }
+    .general-image-list-with-adaptable-columns { grid-template-columns: 1fr }
     #map { height: 400px; }
     #map-overlay { height: 400px; }
     .footer { padding: 3rem 1.5rem 2rem; }

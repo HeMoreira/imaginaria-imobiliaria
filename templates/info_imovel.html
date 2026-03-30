@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ imovel.nome }}{% endblock %}
+
+{% block main %}
+<main>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero__bg">
+            {% for imagem in imovel.imagens_principais_do_produto %}
+            <img class="hero__img" src="{{ url_for('static', filename=imagem.caminho_da_imagem_principal) }}" alt="Imagem Principal do Imóvel"/>
+            {% endfor %}
+            <div class="hero__overlay"></div>
+        </div>
+        <div class="hero__content">
+            <p class="hero__eyebrow">{{ imovel.bairro }} - {{ imovel.cidade }}</p>
+            <h1 class="hero__title">{{ imovel.nome }}<br/></h1>
+            <p class="hero__sub">
+                {{ imovel.tipo_de_produto.value }} - {{ imovel.status.value }}
+            </p>
+            <div class="hero__actions">
+                <a href="#imagens" class="btn btn--primary">Ver Imagens</a>
+                <a href="#mapa" class="btn btn--ghost">Ver mapa</a>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- ===== SOBRE ===== -->
+    <section id="sobre" class="general-section-padding alt-section-background">
+        <div class="general-content-with-two-columns about__inner">
+            <div>
+                <span class="section-label">Sobre o Produto</span>
+                <h2 class="section-title">Detalhes do Imóvel</h2>
+                <p>{{ imovel.descricao }}</p>
+                <ul>
+                    <li>Localização: {{ imovel.bairro }}, {{ imovel.cidade }}.</li>
+                    <li>Tipo de Imóvel: {{ imovel.tipo_de_produto.value }}, {{ imovel.status.value }}.</li>
+                    
+                    {% if imovel.menor_area_em_metros_quadrados == imovel.maior_area_em_metros_quadrados %}
+                    <li>Espaço interno de {{ imovel.menor_area_em_metros_quadrados }} metros quadrados (m²).</li>
+                    {% else %}
+                    <li>Espaço entre {{ imovel.menor_area_em_metros_quadrados }} e {{ imovel.maior_area_em_metros_quadrados }} metros quadrados (m²).</li>
+                    {% endif %}
+
+                    {% if imovel.menor_quantidade_de_dormitorios == imovel.maior_quantidade_de_dormitorios %}
+                    <li>{{ imovel.menor_quantidade_de_dormitorios }} Dormitórios (expectativa de moradores).</li>
+                    {% else %}
+                    <li>Entre {{ imovel.menor_quantidade_de_dormitorios }}–{{ imovel.maior_quantidade_de_dormitorios }} Dormitórios (expectativa de moradores).</li>
+                    {% endif %}
+                </ul>
+                <div class="square-stats">
+                    <div>
+                        <span class="square-stats-title">450 metros</span>
+                        <span class="square-stats-text">até o metrô mais próximo</span>
+                    </div>
+                    <div>
+                        <span class="square-stats-title">70</span>
+                        <span class="square-stats-text">Clientes satisfeitos</span>
+                    </div>
+                    {% if imovel.esta_em_destaque %}
+                    <div>
+                        <span class="square-stats-title">✦</span>
+                        <span class="square-stats-text">Produto em Destaque</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="image-stack">
+                {% for imagem in imovel.imagens_principais_do_produto %}
+                <img src="{{ url_for('static', filename=imagem.caminho_da_imagem_de_fachada1) }}" alt="Fachada 1 do Imóvel" class="image-stack--back"/>
+                {% endfor %}
+                {% for imagem in imovel.imagens_principais_do_produto %}
+                <img src="{{ url_for('static', filename=imagem.caminho_da_imagem_de_fachada2) }}" alt="Fachada 2 do Imóvel" class="image-stack--front"/>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+ 
+    <!-- ===== IMAGENS ===== -->
+    {% with lista_de_imagens=imovel.imagens_do_produto, titulo="Imagens do Imóvel", descricao="Veja cada uma das imagens para conhecer melhor o produto e áreas comuns."  %}
+        {% include 'partials/_listar_imagens_se_existentes.html' %}
+    {% endwith %}
+
+    {% with lista_de_imagens=imovel.plantas_do_produto, titulo="Plantas do Imóvel", descricao="Veja cada uma das imagens para conhecer melhor o produto e áreas comuns."  %}
+        {% include 'partials/_listar_imagens_se_existentes.html' %}
+    {% endwith %}
+
+    <!-- ===== MAPA ===== -->
+    {% include 'partials/_map_section.html' %}
+    
+</main>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+<script>
+    /* ---- Carrossel ---- */
+    (function () {
+        const track  = document.getElementById('carrossel-track');
+        const slides = track.querySelectorAll('.carrossel__slide');
+        const dots   = document.querySelectorAll('.carrossel__dot');
+        let current  = 0;
+    
+        function goTo(idx) {
+        slides[current].classList.remove('carrossel__slide--active');
+        dots[current].classList.remove('carrossel__dot--active');
+        current = (idx + slides.length) % slides.length;
+        slides[current].classList.add('carrossel__slide--active');
+        dots[current].classList.add('carrossel__dot--active');
+        track.style.transform = `translateX(-${current * 100}%)`;
+        }
+    
+        /* Init: activate first */
+        slides[0].classList.add('carrossel__slide--active');
+    
+        document.getElementById('btn-prev').addEventListener('click', () => goTo(current - 1));
+        document.getElementById('btn-next').addEventListener('click', () => goTo(current + 1));
+        dots.forEach(dot => dot.addEventListener('click', () => goTo(+dot.dataset.index)));
+    
+        /* Swipe */
+        let startX = 0;
+        track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend',   e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+        });
+    })();
+</script>
+{% endblock %}
