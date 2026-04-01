@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, current_app, abort
-from flask_login import LoginManager, login_required, login_user, current_user
+from flask import Flask, render_template, request, redirect, url_for, flash, abort
+from flask_wtf.csrf import CSRFProtect
+from flask_login import LoginManager, login_user, current_user
 from flask_talisman import Talisman
 from models import db
 from models import Imovel, ImagensImovel, ImagemComDescricao, PlantaComDescricao, Admin
-from utils import obter_tentativas_de_login, salvar_imagens, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login
+from utils import obter_tentativas_de_login, salvar_imagens, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login, deletar_imagens
 from flask_migrate import Migrate
 from logging_utils import init_app_logging
 from forms import AdminForm, ImovelForm
@@ -17,6 +18,7 @@ from config import Config
 app = Flask(__name__)
 init_app_logging(app)
 app.config.from_object(Config)
+csrf = CSRFProtect(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -51,7 +53,7 @@ def index():
     imoveis = Imovel.query.all()
     return render_template('index.html', imoveis=imoveis)
 
-@app.route("/11_login_k", methods=['POST', 'GET'])
+@app.route("/lo_11gin_k", methods=['POST', 'GET'])
 def login():
     ip = get_remote_address()
     if esta_bloqueado(ip):
@@ -80,7 +82,8 @@ def mostrar_imovel(slug_imovel):
     imovel = Imovel.query.filter_by(slug=slug_imovel).first_or_404()
     return render_template('info_imovel.html', imovel=imovel)
 
-@app.route("/11_damin_k", methods=['POST', 'GET'])
+@app.route("/ad_11min_k", methods=['POST', 'GET'])
+@limiter.limit("10/hour")
 def admin():
     form = ImovelForm(CombinedMultiDict((request.form, request.files)))
     if request.method == 'POST':
@@ -173,6 +176,33 @@ def admin():
         app.logger.info('^ painel de admin foi acessado')
         imoveis = Imovel.query.all()
         return render_template('admin.html', imoveis=imoveis, form=form)
+
+@app.route("/ad_11min_k/delete/<slug_imovel>", methods=['POST'])
+@limiter.limit("1/minute")
+def deletar_imovel(slug_imovel):
+    imovel = Imovel.query.filter_by(slug=slug_imovel).first_or_404()
+    app.logger.warning(f'^ O imóvel *{imovel.nome}* começou a ser deletado do banco de dados pelo painél de admin')
+    lista_de_caminhos = []
+    for campo in imovel.imagens_principais_do_produto:
+        lista_de_caminhos.append(campo.caminho_da_imagem_principal)
+        lista_de_caminhos.append(campo.caminho_da_imagem_de_fachada1)
+        lista_de_caminhos.append(campo.caminho_da_imagem_de_fachada2)
+    for campo in imovel.imagens_do_produto:
+        lista_de_caminhos.append(campo.caminho)
+    for campo in imovel.plantas_do_produto:
+        lista_de_caminhos.append(campo.caminho)
+    deletar_imagens(lista_de_caminhos)
+    try:
+        db.session.delete(imovel)
+        db.session.commit()
+        flash("Imóvel deletado com sucesso!", "success")
+        app.logger.warning(f'^ O imóvel acima foi deletado do banco de dados pelo painél de admin com sucesso')
+        imoveis = Imovel.query.all()
+        return render_template('admin.html', imoveis=imoveis)
+    except:
+        flash("Falha ao deletar o imóvel... Verifique se o nome do mesmo foi escrito corretamente.", "error")
+        imoveis = Imovel.query.all()
+        return render_template('admin.html', imoveis=imoveis)
 
 if __name__ == "__main__":
     with app.app_context():

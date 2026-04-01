@@ -6,6 +6,14 @@ failed_login_attempts = {}
 ip_block_duration = timedelta(minutes=15)
 caminho_base = 'images'
 
+def deletar_imagens(lista_de_caminhos:list):
+    caminho_absoluto_da_pasta_images = os.path.join(current_app.root_path, 'static')
+    if lista_de_caminhos != []:
+        for caminho in lista_de_caminhos:
+            caminho_absoluto_da_imagem = os.path.join(caminho_absoluto_da_pasta_images, caminho)
+            if os.path.exists(caminho_absoluto_da_imagem):
+                os.remove(caminho_absoluto_da_imagem)
+
 def salvar_imagens(lista_de_imagens:list):
     lista_de_caminhos_das_imagens = []
     if lista_de_imagens != []:
@@ -15,11 +23,8 @@ def salvar_imagens(lista_de_imagens:list):
                 caminho_absoluto_da_nova_imagem = os.path.join(current_app.root_path, 'static', caminho_base, imagem.filename)
                 caminho_relativo_da_nova_imagem = caminho_base + '/' + imagem.filename
                 if os.path.exists(caminho_absoluto_da_nova_imagem):
-                    print("rel", caminho_relativo_da_nova_imagem)
-                    print("abs", caminho_absoluto_da_nova_imagem)
                     caminho_relativo_da_nova_imagem, caminho_absoluto_da_nova_imagem = renomear_para_um_nome_unico(imagem.filename, 1)
                 imagem.save(caminho_absoluto_da_nova_imagem)
-                print("rel final", caminho_relativo_da_nova_imagem)
                 lista_de_caminhos_das_imagens.append(caminho_relativo_da_nova_imagem)
             else:
                 lista_de_caminhos_das_imagens.append("not found")
