@@ -23,7 +23,7 @@
             <span class="section-label">Formulário</span>
             <h2 class="section-title">Adicionar Imóvel</h2>
         </div>
-        <form action="/11_damin_k" method="POST" enctype="multipart/form-data" class="general-content">
+        <form action="/ad_11min_k" method="POST" enctype="multipart/form-data" class="general-content">
             {{ form.hidden_tag() }}
             <p>
                 {{ form.nome(placeholder="Nome do imóvel") }}
@@ -89,8 +89,26 @@
             
         </form>
     </section>
+
     {% include 'partials/_listagem_imoveis.html' %}
+
     {% include 'partials/_map_section.html' %}
+
+    <section id="imoveis" class="general-section-padding general-section-background">
+        <div class="general-content">
+            <span class="section-label">área do administrador</span>
+            <h2 class="section-title">Listagem de Imóveis</h2>
+        </div>
+        <div class="general-image-list-with-adaptable-columns">
+            {% if imoveis != [] %}
+                {% for imovel in imoveis %}
+                    {% with imovel=imovel %}
+                        {% include 'partials/_novo_card_admin.html' %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

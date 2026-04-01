@@ -1,0 +1,16 @@
+<div class="alt-card">
+    <div class="alt-card-bg">
+        {% for imagem in imovel.imagens_principais_do_produto %}
+        <img class="card-img" src="{{ url_for('static', filename=imagem.caminho_da_imagem_principal) }}" alt="Imagem de placeholder" loading="lazy" />
+        {% endfor %}
+    </div>
+    <div class="alt-card-body">
+        <div>
+            <h3 class="card-name">{{ imovel.nome }}</h3>
+            <p class="card-location">{{ imovel.bairro }}</p>
+        </div>
+        <div>
+            <a class="card-info-redirect" href="{{ url_for('mostrar_imovel', slug_imovel=imovel.slug) }}">Ver Imóvel</a>
+        </div>
+    </div>
+</div>
