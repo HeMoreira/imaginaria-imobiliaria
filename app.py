@@ -82,6 +82,11 @@ def mostrar_imovel(slug_imovel):
     imovel = Imovel.query.filter_by(slug=slug_imovel).first_or_404()
     return render_template('info_imovel.html', imovel=imovel)
 
+@app.route("/ad_11min_k/imoveis/<slug_imovel>", methods=['GET'])
+def mostrar_imovel_admin(slug_imovel):
+    imovel = Imovel.query.filter_by(slug=slug_imovel).first_or_404()
+    return render_template('info_imovel_admin.html', imovel=imovel)
+
 @app.route("/ad_11min_k", methods=['POST', 'GET'])
 @limiter.limit("10/hour")
 def admin():
