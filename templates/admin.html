@@ -23,71 +23,9 @@
             <span class="section-label">Formulário</span>
             <h2 class="section-title">Adicionar Imóvel</h2>
         </div>
-        <form action="/ad_11min_k" method="POST" enctype="multipart/form-data" class="general-content">
-            {{ form.hidden_tag() }}
-            <p>
-                {{ form.nome(placeholder="Nome do imóvel") }}
-                {{ form.descricao(class="text-area", placeholder="Descrição do Imóvel") }}
-                {{ form.tipo_de_produto(placeholder="Tipo de Produto") }}
-                {{ form.status(placeholder="Status") }}
-                <div class="checkbox-form">
-                    {{ form.esta_visivel.label }}
-                    {{ form.esta_visivel(checked=True) }}
-                </div>
-                <br>
-                <div class="checkbox-form">
-                    {{ form.esta_em_destaque.label }}
-                    {{ form.esta_em_destaque(checked=False) }}
-                </div>
-                <br><br>
-                {{ form.preco_compra(placeholder="Preço de Compra (opcional)") }}
-                {{ form.preco_aluguel(placeholder="Preco de Aluguel (opcional)") }}
-                {{ form.condominio(placeholder="Preço do Condomínio (opcional)") }}
-                {{ form.iptu(placeholder="Preço do IPTU (opcional)") }}
-                <br><br>
-                {{ form.menor_area_em_metros_quadrados(placeholder="Menor Área em metros quadrados") }}
-                {{ form.maior_area_em_metros_quadrados(placeholder="Maior Área em metros quadrados") }}
-                {{ form.menor_quantidade_de_dormitorios(placeholder="Quantidade de Dormitórios do menor produto") }}
-                {{ form.maior_quantidade_de_dormitorios(placeholder="Quantidade de Dormitórios do maior produto") }}
-                <br><br>
-                {{ form.cidade(placeholder="Cidade do Imóvel") }}
-                {{ form.bairro(placeholder="Bairro do Imóvel") }}
-                {{ form.endereco(placeholder="Endereço do Imóvel") }}
-                {{ form.cep(placeholder="CEP do Imóvel") }}
-                <br><br>
-                {{ form.caminho_da_imagem_principal.label }}
-                {{ form.caminho_da_imagem_principal }}
-                {{ form.caminho_da_imagem_de_fachada1.label }}
-                {{ form.caminho_da_imagem_de_fachada1 }}
-                {{ form.caminho_da_imagem_de_fachada2.label }}
-                {{ form.caminho_da_imagem_de_fachada2 }}
-                <br><br>
-                <label for="multiple-image-form">Imagens Adicionais</label>
-                <div id="multiple-image-form" class="general-list-with-adaptable-columns">
-                    {% for item in form.lista_de_caminhos_de_imagens_adicionais %}
-                    {{ item(class="form-imagem-adicional") }}
-                    {% endfor %}
-                </div>
-                <div>
-                    <button class="btn-form" id="add-new-image" type="button">Adicionar Imagem</button>
-                    <button class="btn-form" id="remove-last-image" type="button">Remover Última Imagem</button>
-                </div>
-                <br><br>
-                <label for="multiple-plant-form">Imagens de Plantas</label>
-                <div id="multiple-plant-form" class="general-list-with-adaptable-columns">
-                    {% for item in form.lista_de_caminhos_de_imagens_de_plantas %}
-                    {{ item(class="form-imagem-plantas") }}
-                    {% endfor %}
-                </div>
-                <div>
-                    <button class="btn-form" id="add-new-plant" type="button">Adicionar Planta</button>
-                    <button class="btn-form" id="remove-last-plant" type="button">Remover Última Planta</button>
-                </div>
-                <br>
-                {{ form.submit(class="btn-form btn-submit") }}
-            </p>
-            
-        </form>
+        {% with form=form, action="add" %}
+            {% include 'partials/_formulario_imovel.html' %}
+        {% endwith %}
     </section>
 
     {% include 'partials/_listagem_imoveis.html' %}

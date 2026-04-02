@@ -1,6 +1,7 @@
 import os
 from datetime import datetime, timedelta
 from flask import current_app
+from models import ImagemComDescricao, PlantaComDescricao
 
 failed_login_attempts = {}
 ip_block_duration = timedelta(minutes=15)
@@ -73,3 +74,48 @@ def aumentar_contador_de_tentativas_de_login(ip):
 def zerar_contador_de_tentativas_de_login(ip):
     if failed_login_attempts.get(ip, None) != None:
         del failed_login_attempts[ip]
+
+def salvar_imagens_de_novo_imovel(form):
+    lista_de_imagens_principais = [
+        form.caminho_da_imagem_principal.data,
+        form.caminho_da_imagem_de_fachada1.data,
+        form.caminho_da_imagem_de_fachada2.data,
+    ]
+    lista_de_imagens = []
+    lista_de_plantas = []
+    for item in form.lista_de_caminhos_de_imagens_adicionais:
+        if item.imagem.data != None:
+            lista_de_imagens.append(item.imagem.data)
+    for item in form.lista_de_caminhos_de_imagens_de_plantas:
+        if item.imagem.data != None:
+            lista_de_plantas.append(item.imagem.data)
+    lista_de_caminhos_das_imagens_principais = salvar_imagens(lista_de_imagens_principais)
+    lista_de_caminhos_das_imagens = salvar_imagens(lista_de_imagens)
+    lista_de_caminhos_das_plantas = salvar_imagens(lista_de_plantas)
+    return lista_de_caminhos_das_imagens_principais, lista_de_caminhos_das_imagens, lista_de_caminhos_das_plantas
+
+def instanciar_novas_imagens_com_descricao(form, lista_de_caminhos, id_imovel, db):
+    index_caminho_imagem = 0
+    for item in form.lista_de_caminhos_de_imagens_adicionais:
+        if item.imagem.data != None:
+            print(lista_de_caminhos[index_caminho_imagem])
+            nova_img = ImagemComDescricao(
+                caminho=lista_de_caminhos[index_caminho_imagem],
+                descricao=item.descricao.data,
+                imovel_id=id_imovel,
+            )
+            db.session.add(nova_img)
+            index_caminho_imagem+=1
+
+def instanciar_novas_plantas_com_descricao(form, lista_de_caminhos, id_imovel, db):
+    index_caminho_imagem = 0
+    for item in form.lista_de_caminhos_de_imagens_de_plantas:
+        if item.imagem.data != None:
+            print(lista_de_caminhos[index_caminho_imagem])
+            nova_img = PlantaComDescricao(
+                caminho=lista_de_caminhos[index_caminho_imagem],
+                descricao=item.descricao.data,
+                imovel_id=id_imovel,
+            )
+            db.session.add(nova_img)
+            index_caminho_imagem+=1
