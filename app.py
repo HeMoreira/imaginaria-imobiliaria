@@ -3,11 +3,11 @@ from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, current_user
 from flask_talisman import Talisman
 from models import db
-from models import Imovel, ImagensImovel, Admin, ImagemComDescricao, PlantaComDescricao
+from models import Imovel, ImagensImovel, Admin
 from utils import obter_tentativas_de_login, salvar_imagens_de_novo_imovel, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login, deletar_imagens, instanciar_novas_imagens_com_descricao, instanciar_novas_plantas_com_descricao
 from flask_migrate import Migrate
 from logging_utils import init_app_logging
-from forms import AdminForm, ImovelForm
+from forms import AdminForm, ImovelForm, ConfirmacaoForm
 from forms import TipoDeProduto, Status
 from werkzeug.datastructures import CombinedMultiDict
 from flask_limiter import Limiter
@@ -240,9 +240,10 @@ def admin():
         return render_template('admin.html', imoveis=imoveis, form=form)
 
 @app.route("/ad_11min_k/delete/<slug_imovel>", methods=['GET', 'POST'])
-@limiter.limit("1/minute")
+@limiter.limit("2/minute")
 def deletar_imovel(slug_imovel):
     imovel = Imovel.query.filter_by(slug=slug_imovel).first_or_404()
+    form = ConfirmacaoForm(request.form)
     if request.method == 'POST':
         app.logger.warning(f'^ O imóvel *{imovel.nome}* começou a ser deletado do banco de dados pelo painél de admin')
         lista_de_caminhos = []
@@ -265,7 +266,7 @@ def deletar_imovel(slug_imovel):
             flash("Falha ao deletar o imóvel... Verifique se o nome do mesmo foi escrito corretamente.", "error")
             return redirect(url_for('admin'))
     else:
-        return render_template('confirmar_acao.html', imovel=imovel)
+        return render_template('confirmar_acao.html', imovel=imovel, form=form)
 
 if __name__ == "__main__":
     with app.app_context():

@@ -1,0 +1,7 @@
+2026-04-01 23:44:29,057 | WARNING | N/A | N/A N/A |  * Debugger is active!
+2026-04-01 23:46:44,984 | WARNING | N/A | N/A N/A |  * Debugger is active!
+2026-04-01 23:57:16,261 | WARNING | N/A | N/A N/A |  * Debugger is active!
+2026-04-01 23:57:23,324 | WARNING | N/A | N/A N/A |  * Debugger is active!
+2026-04-01 23:57:27,589 | WARNING | N/A | N/A N/A |  * Debugger is active!
+2026-04-01 23:57:33,911 | WARNING | 127.0.0.1 | POST http://localhost:5000/ad_11min_k/delete/dona-elisa-restaurante | ^ O imóvel *Dona Elisa Restaurante* começou a ser deletado do banco de dados pelo painél de admin
+2026-04-01 23:57:33,923 | WARNING | 127.0.0.1 | POST http://localhost:5000/ad_11min_k/delete/dona-elisa-restaurante | ^ O imóvel citado foi deletado do banco de dados pelo painél de admin com sucesso

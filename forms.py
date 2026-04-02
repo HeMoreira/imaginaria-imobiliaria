@@ -66,3 +66,6 @@ class ImovelForm(FlaskForm):
     lista_de_caminhos_de_imagens_de_plantas = FieldList(FormField(PlantaComContexto), min_entries=50)
 
     submit = SubmitField("Adicionar imóvel")
+
+class ConfirmacaoForm(FlaskForm):
+    submit = SubmitField("Deletar Imóvel")
