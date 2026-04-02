@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% include 'messages.html' %}
+
+{% block title %}Editar{% endblock %}
+
+{% block main %}
+<section id="sobre" class="general-section-padding alt-section-background">
+    <div class="general-content listings__header">
+        <span class="section-label">Formulário</span>
+        <h2 class="section-title">Editar Imóvel</h2>
+    </div>
+    {% with form=form, action="edit", imovel=imovel %}
+        {% include 'partials/_formulario_imovel.html' %}
+    {% endwith %}
+</section>
+<script src="static/js/new_image_form.js"></script>
+{% endblock %}

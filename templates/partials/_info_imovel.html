@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% include 'messages.html' %}
 
 {% block title %}{{ imovel.nome }}{% endblock %}
 
@@ -76,8 +77,8 @@
         </div>
         {% if admin_access == True %}
         <div class="general-content-padding general-content-with-two-columns">
-            <a href="" class="btn btn--primary">Editar Imóvel</a>
-            <a href="" class="btn btn--primary">Excluir Imóvel</a>
+            <a href="{{ url_for('editar_imovel', id_imovel=imovel.id) }}" class="btn btn--primary">Editar Imóvel</a>
+            <a href="{{ url_for('deletar_imovel', slug_imovel=imovel.slug) }}" class="btn btn--primary">Excluir Imóvel</a>
         </div>
         {% endif %}
     </section>
