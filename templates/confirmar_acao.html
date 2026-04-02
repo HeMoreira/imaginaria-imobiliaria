@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Exclusão{% endblock %}
+
+{% block main %}
+<section id="confirmacao" class="general-section-padding alt-section-background">
+    <h2>Tem certeza que deseja deletar o imóvel "{{ imovel.nome }}"?</h2>
+    <p>Esta ação não pode ser desfeita. Se você acredita que ainda pode usar este imóvel no futuro, pode valer mais a pena apenas desabilita-lo para os usuários...</p>
+    <form action="/ad_11min_k/delete/{{ imovel.slug }}" method="POST" class="general-content">
+        {{ form.hidden_tag() }}
+        {{ form.submit(class="btn-form btn-submit") }}
+    </form>
+    <br>
+    <a href="{{ url_for('admin') }}" class="btn btn--ghost">Cancelar</a>
+</section>
+{% endblock %}
