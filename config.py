@@ -2,8 +2,9 @@ import os
 from datetime import timedelta
 
 class Config:
-    SECRET_KEY = 'incrediblekeythatwilldefinitelybechangedbeforerunningintoproduction'
-
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    if not SECRET_KEY:
+        raise ValueError("SECRET_KEY não encontrada nas variáveis de ambiente.")
     SQLALCHEMY_DATABASE_URI = 'sqlite:///portalnegocios.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PROPAGATE_EXCEPTIONS = True
