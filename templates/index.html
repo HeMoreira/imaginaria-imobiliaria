@@ -52,12 +52,13 @@
  
     <!-- ===== IMÓVEIS ===== -->
     {% include 'partials/_listagem_imoveis.html' %}
+
     {% include 'partials/_listagem_imoveis_metro.html' %}
  
     <!-- ===== MAPA ===== -->
     {% include 'partials/_map_section.html' %}
 </main>
-
+<script src="static/js/listings.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="static/js/maps.js"></script>
 {% endblock %}

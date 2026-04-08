@@ -1,4 +1,4 @@
-<section id="imoveis" class="general-section-padding general-section-background">
+<section id="imoveis" class="imoveis {% block id %}{% endblock %} general-section-padding general-section-background">
     <div class="general-content">
         <span class="section-label">{% block spantitle %}{% endblock %}</span>
         <h2 class="section-title">{% block title %}{% endblock %}</h2>
@@ -17,7 +17,3 @@
         <button class="carousel-btn--right">&#8594;</button>
     </div>
 </section>
-<script>
-    const filtro_listagem = "{{ filtro_listagem }}";
-</script>
-<script src="static/js/listings.js"></script>
