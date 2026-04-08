@@ -113,6 +113,8 @@ ul li::before {
 .general-image-list-with-adaptable-columns, .general-list-with-adaptable-columns {
     display: grid;
     align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 .general-image-list-with-adaptable-columns {
     grid-template-columns: 1fr 1fr 1fr;
