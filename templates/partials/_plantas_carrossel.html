@@ -1,0 +1,29 @@
+{% if lista_de_imagens | length != 0 %}
+<section id="imagens" class="general-section-background general-section-padding">
+    <div class="general-content">
+        <span class="section-label">galeria</span>
+        <h2 class="section-title">{{ titulo }}</h2>
+        <p>{{ descricao }}</p>
+    </div>
+    <div class="plantas-carrossel general-content">
+        <div class="plantas-carrossel-track" id="plantasCarrosselTrack">
+            {% for imagem in lista_de_imagens %}
+            <div class="plantas-carrossel-slide">
+              <img src="{{ url_for('static', filename=imagem.caminho) }}" alt="{{ imagem.descricao }}">
+            </div>
+            {% endfor %}
+        </div>
+        <button class="plantas-carrossel-btn btn btn--simple prev">&#8592;</button>
+        <button class="plantas-carrossel-btn btn btn--simple next">&#8594;</button>
+    </div>
+</section>
+{% else %}
+<section class="general-section-padding general-section-background">
+    <div>
+        <span class="section-label">ooops</span>
+        <h2 class="section-title">Nenhuma imagem disponível...</h2>
+        <p>Parece que não temos imagens disponíveis para este imóvel, o que é comum caso ele não tenha sido lançado ainda...</p>
+        <p>Mais informações em breve! ;)</p>
+    </div>
+</section>
+{% endif %}
