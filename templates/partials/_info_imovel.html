@@ -89,7 +89,7 @@
     {% endwith %}
 
     {% with lista_de_imagens=imovel.plantas_do_produto, titulo="Plantas do Imóvel", descricao="Veja cada uma das imagens para conhecer melhor o produto e áreas comuns."  %}
-        {% include 'partials/_listar_imagens_se_existentes.html' %}
+        {% include 'partials/_plantas_carrossel.html' %}
     {% endwith %}
 
     <!-- ===== MAPA ===== -->
@@ -98,4 +98,5 @@
 </main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plants_listings.js') }}"></script>
 {% endblock %}
