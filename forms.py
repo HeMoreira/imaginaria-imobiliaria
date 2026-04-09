@@ -57,6 +57,8 @@ class ImovelForm(FlaskForm):
     bairro = StringField('Bairro', [validators.DataRequired(), validators.Length(max=100)])
     endereco = StringField('Endereço', [validators.DataRequired(), validators.Length(max=255)])
     cep = StringField('CEP', [validators.DataRequired(), validators.Length(max=10)])
+    numero = StringField('Número', [validators.DataRequired(), validators.Length(max=10)])
+    metros_ate_o_metro_mais_proximo = IntegerField('Metros até o Metrô mais próximo', [validators.Optional()], default=10000)
 
     caminho_da_imagem_principal = FileField('Imagem Principal', [FileRequired()])
     caminho_da_imagem_de_fachada1 = FileField('Imagem de Fachada 1', [FileRequired()])

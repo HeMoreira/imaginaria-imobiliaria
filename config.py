@@ -42,6 +42,12 @@ class Config:
         ],
         'connect-src': [
             "\'self\'",
+            "https://api.mapbox.com",
+            "https://overpass-api.de",
+            "https://nominatim.openstreetmap.org",
+            "https://viacep.com.br",
+            "https://api.opencagedata.com",
+            "https://photon.komoot.io",
             "https://*.tile.openstreetmap.org",
             "https://unpkg.com"
         ]

@@ -127,6 +127,8 @@ def editar_imovel(id_imovel):
                 imovel.bairro = form.bairro.data
                 imovel.endereco = form.endereco.data
                 imovel.cep = form.cep.data
+                imovel.numero = form.numero.data
+                imovel.metros_ate_o_metro_mais_proximo = form.metros_ate_o_metro_mais_proximo.data
                 # Atualizar slug se o nome mudou
                 imovel.slug = slugify(form.nome.data)
 
@@ -176,7 +178,6 @@ def editar_imovel(id_imovel):
                 form.lista_de_caminhos_de_imagens_de_plantas[index].descricao.data = planta.descricao
         return render_template('editar_imovel.html', form=form, imovel=imovel)
 
-
 @app.route("/ad_11min_k", methods=['POST', 'GET'])
 @limiter.limit("6/minute")
 def admin():
@@ -204,6 +205,8 @@ def admin():
                 bairro=form.bairro.data,
                 endereco=form.endereco.data,
                 cep=form.cep.data,
+                numero=form.numero.data,
+                metros_ate_o_metro_mais_proximo=form.metros_ate_o_metro_mais_proximo.data
             )
             imagens_principais_novo_imovel = ImagensImovel(
                 caminho_da_imagem_principal=lista_de_caminhos_das_imagens_principais[0],
@@ -271,4 +274,4 @@ def deletar_imovel(slug_imovel):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=False)
+    app.run(debug=True)
