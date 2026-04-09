@@ -30,9 +30,21 @@
         {{ form.maior_quantidade_de_dormitorios(placeholder="Quantidade de Dormitórios do maior produto") }}
         <br><br>
         {{ form.cidade(placeholder="Cidade do Imóvel") }}
-        {{ form.bairro(placeholder="Bairro do Imóvel") }}
         {{ form.endereco(placeholder="Endereço do Imóvel") }}
-        {{ form.cep(placeholder="CEP do Imóvel") }}
+        {{ form.bairro(placeholder="Bairro do Imóvel", id="bairro") }}
+        <div id="cep-numero-container">
+            {{ form.cep(placeholder="CEP do Imóvel", id="cep") }}
+            {{ form.numero(placeholder="Número do Imóvel", id="numero") }}
+        </div>
+        <input type="hidden" name="metros_ate_o_metro_mais_proximo" id="metros_ate_o_metro_mais_proximo"/>
+
+        <button type="button" id="btn-buscar" class="btn btn-form">Verificar Endereço no Mapa</button>
+        <small id="status-busca" style="display: block; margin-top: 5px;"></small>
+        <div class="map-section-container">
+            <div id="map"></div>
+            <div id="map-overlay">Pressione Ctrl enquanto rola a tela para aplicar zoom no mapa</div>
+        </div>
+
         <br><br>
         {{ form.caminho_da_imagem_principal.label }}
         {{ form.caminho_da_imagem_principal }}

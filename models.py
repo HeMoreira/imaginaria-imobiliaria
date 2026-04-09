@@ -43,6 +43,8 @@ class Imovel(db.Model):
     bairro = db.Column(db.String(100), nullable=False)
     endereco = db.Column(db.String(255), nullable=False)
     cep = db.Column(db.String(10), nullable=False)
+    numero = db.Column(db.String(10), nullable=False)
+    metros_ate_o_metro_mais_proximo = db.Column(db.Integer, default=10000)
 
     imagens_principais_do_produto = db.relationship('ImagensImovel', backref="imovel", lazy=True, cascade="all, delete-orphan")
     imagens_do_produto = db.relationship('ImagemComDescricao', back_populates='imovel_rel_imagem', lazy=True, cascade="all, delete-orphan")

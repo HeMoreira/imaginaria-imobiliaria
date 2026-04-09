@@ -782,6 +782,14 @@ form input:required:invalid, form select:required:invalid, form textarea:require
 form input:required:valid, form select:required:valid, form textarea:required:valid {
     border-color: var(--sucess-color);
 }
+form #cep-numero-container {
+    display: flex;
+    gap: 1rem;
+}
+form #cep, form #numero {
+    display: block;
+    width: 50%;
+}
 /* ================================================
    MAP SECTION
    ================================================ */
@@ -851,6 +859,15 @@ form input:required:valid, form select:required:valid, form textarea:required:va
     background-color: var(--color-cobertura);
     color: var(--color-cobertura);
 }
+.metro-icon {
+    font-size: 32px; /* Tamanho do ícone */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); /* Sombra para destaque */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+}
+.metro-icon:hover { transform: scale(1.2); }
 
 /* ================================================
    FOOTER

@@ -50,10 +50,12 @@
                     {% endif %}
                 </ul>
                 <div class="square-stats">
+                    {% if imovel.metros_ate_o_metro_mais_proximo < 1000 %}
                     <div>
-                        <span class="square-stats-title">450 metros</span>
+                        <span class="square-stats-title">{{ imovel.metros_ate_o_metro_mais_proximo }} metros</span>
                         <span class="square-stats-text">até o metrô mais próximo</span>
                     </div>
+                    {% endif %}
                     <div>
                         <span class="square-stats-title">70</span>
                         <span class="square-stats-text">Clientes satisfeitos</span>
