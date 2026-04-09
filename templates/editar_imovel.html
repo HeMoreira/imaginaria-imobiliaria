@@ -4,14 +4,18 @@
 {% block title %}Editar{% endblock %}
 
 {% block main %}
-<section id="sobre" class="general-section-padding alt-section-background">
-    <div class="general-content listings__header">
-        <span class="section-label">Formulário</span>
-        <h2 class="section-title">Editar Imóvel</h2>
-    </div>
-    {% with form=form, action="edit", imovel=imovel %}
-        {% include 'partials/_formulario_imovel.html' %}
-    {% endwith %}
-</section>
-<script src="static/js/new_image_form.js"></script>
+<main>
+    <section id="sobre" class="general-section-padding alt-section-background">
+        <div class="general-content listings__header">
+            <span class="section-label">Formulário</span>
+            <h2 class="section-title">Editar Imóvel</h2>
+        </div>
+        {% with form=form, action="edit", imovel=imovel %}
+            {% include 'partials/_formulario_imovel.html' %}
+        {% endwith %}
+    </section>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+<script src="{{ url_for('static', filename='js/preview_map.js') }}"></script>
 {% endblock %}

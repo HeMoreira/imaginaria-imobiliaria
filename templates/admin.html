@@ -47,9 +47,9 @@
         </div>
     </section>
 </main>
-<script src="static/js/listings.js"></script>
+<script src="{{ url_for('static', filename='js/listings.js') }}"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="static/js/maps.js"></script>
-<script src="static/js/preview_map.js"></script>
-<script src="static/js/new_image_form.js"></script>
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+<script src="{{ url_for('static', filename='js/preview_map.js') }}"></script>
+<script src="{{ url_for('static', filename='js/new_image_form.js') }}"></script>
 {% endblock %}
