@@ -128,7 +128,10 @@ def editar_imovel(id_imovel):
                 imovel.endereco = form.endereco.data
                 imovel.cep = form.cep.data
                 imovel.numero = form.numero.data
-                imovel.metros_ate_o_metro_mais_proximo = form.metros_ate_o_metro_mais_proximo.data
+                if form.metros_ate_o_metro_mais_proximo.data:
+                    imovel.metros_ate_o_metro_mais_proximo = form.metros_ate_o_metro_mais_proximo.data
+                else:
+                    imovel.metros_ate_o_metro_mais_proximo = 10000
                 # Atualizar slug se o nome mudou
                 imovel.slug = slugify(form.nome.data)
 
@@ -274,4 +277,4 @@ def deletar_imovel(slug_imovel):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(debug=False)

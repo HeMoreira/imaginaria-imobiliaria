@@ -7,9 +7,11 @@
 {% block cardsarea %}
     {% if imoveis != [] %}
         {% for imovel in imoveis %}
-            {% with imovel=imovel %}
-                {% include 'partials/_novo_card.html' %}
-            {% endwith %}
+            {% if imovel.metros_ate_o_metro_mais_proximo < 1000 %}
+                 {% with imovel=imovel %}
+                    {% include 'partials/_novo_card.html' %}
+                {% endwith %}
+            {% endif %}
         {% endfor %}
         {% with imovel=imoveis[0] %}
             {% include 'partials/_novo_card.html' %}

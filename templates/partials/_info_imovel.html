@@ -52,7 +52,7 @@
                 <div class="square-stats">
                     {% if imovel.metros_ate_o_metro_mais_proximo < 1000 %}
                     <div>
-                        <span class="square-stats-title">{{ imovel.metros_ate_o_metro_mais_proximo }} metros</span>
+                        <span class="square-stats-title">~{{ imovel.metros_ate_o_metro_mais_proximo }} metros</span>
                         <span class="square-stats-text">até o metrô mais próximo</span>
                     </div>
                     {% endif %}
@@ -100,5 +100,6 @@
 </main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+<script src="{{ url_for('static', filename='js/map_icons.js') }}"></script>
 <script src="{{ url_for('static', filename='js/plants_listings.js') }}"></script>
 {% endblock %}

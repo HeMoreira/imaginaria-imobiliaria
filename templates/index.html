@@ -58,8 +58,8 @@
     <!-- ===== MAPA ===== -->
     {% include 'partials/_map_section.html' %}
 </main>
-<script src="static/js/listings.js"></script>
+<script src="{{ url_for('static', filename='js/listings.js') }}"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="static/js/maps.js"></script>
-<script src="static/js/map_icons.js"></script>
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+<script src="{{ url_for('static', filename='js/map_icons.js') }}"></script>
 {% endblock %}
