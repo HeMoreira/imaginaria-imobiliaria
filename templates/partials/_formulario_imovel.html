@@ -32,7 +32,7 @@
         {{ form.cidade(placeholder="Cidade do Imóvel") }}
         {{ form.endereco(placeholder="Endereço do Imóvel") }}
         {{ form.bairro(placeholder="Bairro do Imóvel", id="bairro") }}
-        <div id="cep-numero-container">
+        <div class="dois-campos-na-mesma-linha">
             {{ form.cep(placeholder="CEP do Imóvel", id="cep") }}
             {{ form.numero(placeholder="Número do Imóvel", id="numero") }}
         </div>
@@ -43,6 +43,11 @@
         <div class="map-section-container">
             <div id="map"></div>
             <div id="map-overlay">Pressione Ctrl enquanto rola a tela para aplicar zoom no mapa</div>
+        </div>
+        <p>Se a localização não for encontrada, você pode inserir as coordenadas geográficas manualmente:</p>
+        <div class="dois-campos-na-mesma-linha">
+            <input type="number" name="cordenadas_lat" id="cordenadas_lat" step="any">
+            <input type="number" name="cordenadas_lng" id="cordenadas_lng" step="any">
         </div>
 
         <br><br>

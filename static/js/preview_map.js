@@ -22,6 +22,8 @@ let mapLayers = L.layerGroup().addTo(map);
 let tempCoords = null;
 
 const elements = {
+    latManual: document.getElementById('cordenadas_lat'),
+    lngManual: document.getElementById('cordenadas_lng'),
     cep: document.getElementById('cep'),
     numero: document.getElementById('numero'),
     bairro: document.getElementById('bairro'),
@@ -40,6 +42,35 @@ async function request(url) {
 
 // ─── Fluxo Principal ──────────────────────────────────────────────────────────
 async function buscarEndereco() {
+    if (elements.latManual && elements.lngManual && elements.latManual.value && elements.lngManual.value) {
+        const latM = parseFloat(elements.latManual.value);
+        const lngM = parseFloat(elements.lngManual.value);
+
+        updateStatus('Usando coordenadas manuais...');
+        mapLayers.clearLayers();
+        try {
+            // Geocodificação reversa para confirmar o local exato
+            const data = await request(`https://photon.komoot.io/reverse?lat=${latM}&lon=${lngM}`);
+            const infos = data.features?.[0]?.properties;
+            
+            // Monta o endereço retornado pela coordenada para conferência do usuário
+            const enderecoConfirmado = infos 
+                ? `${infos.name || ''} ${infos.housenumber || ''}, ${infos.city || ''}, ${infos.cep || ''}`.trim()
+                : "Endereço não identificado nesta coordenada";
+
+            await renderizarResultado(
+                latM, 
+                lngM, 
+                `📍 <b>Coordenadas Manuais Utilizadas</b><br>Confirmado no mapa: ${enderecoConfirmado}`, 
+                false
+            );
+        } catch (e) {
+            // Se a API de confirmação falhar, ainda posiciona o marcador, mas avisa
+            await renderizarResultado(latM, lngM, `📍 <b>Coordenadas Manuais</b><br>Localização forçada pelo usuário`, true);
+        }
+        return;
+    }
+
     const cep = elements.cep.value.replace(/\D/g, '');
     const numero = elements.numero.value.trim();
     const bairro = elements.bairro.value.trim();
