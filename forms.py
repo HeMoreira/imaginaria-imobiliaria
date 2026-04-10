@@ -42,16 +42,20 @@ class ImovelForm(FlaskForm):
     condominio = DecimalField('Condomínio', [validators.Optional()], places=2)
     iptu = DecimalField('IPTU', [validators.Optional()], places=2)
     menor_area_em_metros_quadrados = IntegerField('Menor Área (m²)', [
-        validators.DataRequired(),
+        validators.DataRequired(), 
+        validators.NumberRange(min=1, max=32767),
     ])
     maior_area_em_metros_quadrados = IntegerField('Maior Área (m²)', [
         validators.DataRequired(),
+        validators.NumberRange(min=1, max=32767),
     ])
     menor_quantidade_de_dormitorios = IntegerField('Menor Quantidade de Dormitórios', [
         validators.DataRequired(),
+        validators.NumberRange(min=0, max=100),
     ])
     maior_quantidade_de_dormitorios = IntegerField('Maior Quantidade de Dormitórios', [
         validators.DataRequired(),
+        validators.NumberRange(min=0, max=100),
     ])
     cidade = StringField('Cidade', [validators.DataRequired(), validators.Length(max=100)])
     bairro = StringField('Bairro', [validators.DataRequired(), validators.Length(max=100)])

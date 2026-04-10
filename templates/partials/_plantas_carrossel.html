@@ -8,9 +8,10 @@
     <div class="plantas-carrossel general-content">
         <div class="plantas-carrossel-track" id="plantasCarrosselTrack">
             {% for imagem in lista_de_imagens %}
-            <div class="plantas-carrossel-slide">
-              <img src="{{ url_for('static', filename=imagem.caminho) }}" alt="{{ imagem.descricao }}">
-            </div>
+            <figure class="plantas-carrossel-slide">
+                <img src="{{ url_for('static', filename=imagem.caminho) }}" alt="{{ imagem.descricao }}" title="{{ imagem.descricao }}">
+                <p><br>{{ imagem.descricao }}</p>
+            </figure>
             {% endfor %}
         </div>
         <button class="plantas-carrossel-btn btn btn--simple prev">&#8592;</button>

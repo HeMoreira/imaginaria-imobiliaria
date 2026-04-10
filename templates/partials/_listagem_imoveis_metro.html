@@ -7,7 +7,7 @@
 {% block cardsarea %}
     {% if imoveis != [] %}
         {% for imovel in imoveis %}
-            {% if imovel.metros_ate_o_metro_mais_proximo < 1000 %}
+            {% if imovel.metros_ate_o_metro_mais_proximo < 1800 %}
                  {% with imovel=imovel %}
                     {% include 'partials/_novo_card.html' %}
                 {% endwith %}
