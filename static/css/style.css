@@ -38,6 +38,7 @@
     box-sizing: border-box; 
     margin: 0; 
     padding: 0; 
+    overflow-wrap: break-word;
 }
 html { 
     scroll-behavior: smooth; 
@@ -495,6 +496,11 @@ ul li::before {
     position: relative;
     aspect-ratio: 4 / 3;
 }
+.plantas-carrossel-slide p {
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
 .plantas-carrossel-btn {
   position: absolute;
@@ -934,6 +940,7 @@ form .dois-campos-na-mesma-linha > * {
     .image-stack { height: 450px; }
     .footer__inner { grid-template-columns: 1fr; gap: 2rem; }
     .card { flex: 0 0 49%; }
+    .plantas-carrossel-slide p { max-width: 400px; }
     .general-image-list-with-adaptable-columns { grid-template-columns: 1fr 1fr }
     .general-list-with-adaptable-columns { grid-template-columns: 1fr; }
     #map { height: 600px; }
@@ -942,6 +949,7 @@ form .dois-campos-na-mesma-linha > * {
 
 @media (max-width: 600px) {
     .header__contact .contact-btn span { display: none; }
+    .hero__content { max-width: 500px; }
     .contact-btn { padding: 0.5rem; }
     .hero__content { padding: 0 1rem; }
     .general-section-padding { padding: 5rem 1.5rem; }
