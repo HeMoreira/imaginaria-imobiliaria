@@ -4,7 +4,7 @@ from flask_login import LoginManager, login_user, current_user
 from flask_talisman import Talisman
 from models import db
 from models import Imovel, ImagensImovel, Admin
-from utils import obter_tentativas_de_login, salvar_imagens_de_novo_imovel, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login, deletar_imagens, instanciar_novas_imagens_com_descricao, instanciar_novas_plantas_com_descricao
+from utils import obter_tentativas_de_login, salvar_imagens_de_novo_imovel, esta_bloqueado, aumentar_contador_de_tentativas_de_login, zerar_contador_de_tentativas_de_login, deletar_imagens, instanciar_novas_imagens_com_descricao, instanciar_novas_plantas_com_descricao, esta_disponivel
 from flask_migrate import Migrate
 from logging_utils import init_app_logging
 from forms import AdminForm, ImovelForm, ConfirmacaoForm
@@ -99,6 +99,11 @@ def editar_imovel(id_imovel):
         form.tipo_de_produto.choices = [(tipo.name, tipo.value) for tipo in TipoDeProduto]
         form.status.choices = [(status.name, status.value) for status in Status]
         if form.validate():
+            if not esta_disponivel(form.nome.data):
+                app.logger.info('^ edição de imóvel mal sucedida')
+                flash("Um imóvel com esse nome já existe! Utilize um nome diferente...", "error")
+                imoveis = Imovel.query.all()
+                return render_template('admin.html', mensagem="Erro ao adicionar imóvel", imoveis=imoveis, form=form)
             try:
                 caminhos_antigos_imagens_principais = []
                 for campo in imovel.imagens_principais_do_produto:
@@ -148,7 +153,6 @@ def editar_imovel(id_imovel):
                     )
                     imovel.imagens_principais_do_produto.append(imagens_principais_novo_imovel)
                 
-                db.session.flush()
                 db.session.commit()
                 deletar_imagens(caminhos_antigos_imagens_principais)
                 flash("Imóvel editado com sucesso!", "success")
@@ -187,6 +191,11 @@ def admin():
     form = ImovelForm(CombinedMultiDict((request.form, request.files)))
     if request.method == 'POST':
         if form.validate():
+            if not esta_disponivel(form.nome.data):
+                app.logger.info('^ adição de imóvel mal sucedido')
+                flash("Um imóvel com esse nome já existe! Utilize um nome diferente...", "error")
+                imoveis = Imovel.query.all()
+                return render_template('admin.html', mensagem="Erro ao adicionar imóvel", imoveis=imoveis, form=form)
             lista_de_caminhos_das_imagens_principais, lista_de_caminhos_das_imagens, lista_de_caminhos_das_plantas = salvar_imagens_de_novo_imovel(form)
 
             novo_imovel = Imovel(
@@ -277,4 +286,4 @@ def deletar_imovel(slug_imovel):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=False)
+    app.run(debug=True)

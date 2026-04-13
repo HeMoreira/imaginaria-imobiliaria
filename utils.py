@@ -2,8 +2,9 @@ import os
 from datetime import datetime, timedelta
 from flask import current_app
 from werkzeug.security import safe_join
-
-from models import ImagemComDescricao, PlantaComDescricao
+from wtforms.validators import ValidationError
+from models import ImagemComDescricao, PlantaComDescricao, Imovel
+from slugify import slugify
 
 failed_login_attempts = {}
 ip_block_duration = timedelta(minutes=15)
@@ -121,3 +122,9 @@ def instanciar_novas_plantas_com_descricao(form, lista_de_caminhos, id_imovel, d
             )
             db.session.add(nova_img)
             index_caminho_imagem+=1
+
+def esta_disponivel(nome):
+    imovel = Imovel.query.filter_by(slug=slugify(nome)).first()
+    if imovel:
+        return False
+    return True

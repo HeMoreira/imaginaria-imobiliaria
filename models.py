@@ -21,8 +21,8 @@ class TipoDeProduto(Enum):
 class Imovel(db.Model):
     __tablename__ = 'imoveis'
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(50), nullable=False)
-    slug = db.Column(db.String(50), nullable=True)
+    nome = db.Column(db.String(50), unique=True, nullable=False)
+    slug = db.Column(db.String(50), unique=True, nullable=True)
     descricao = db.Column(db.String(500), nullable=False)
     tipo_de_produto = db.Column(db.Enum(TipoDeProduto), nullable=False)
     status = db.Column(db.Enum(Status), nullable=False)
@@ -36,8 +36,8 @@ class Imovel(db.Model):
 
     menor_area_em_metros_quadrados = db.Column(db.SmallInteger, nullable=False)
     maior_area_em_metros_quadrados = db.Column(db.SmallInteger, nullable=False)
-    menor_quantidade_de_dormitorios = db.Column(db.SmallInteger, default=0)
-    maior_quantidade_de_dormitorios = db.Column(db.SmallInteger, default=0)
+    menor_quantidade_de_dormitorios = db.Column(db.SmallInteger , nullable=False)
+    maior_quantidade_de_dormitorios = db.Column(db.SmallInteger, nullable=False)
 
     cidade = db.Column(db.String(100), nullable=False)
     bairro = db.Column(db.String(100), nullable=False)
