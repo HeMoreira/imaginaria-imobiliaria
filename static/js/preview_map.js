@@ -1,5 +1,5 @@
 // ─── Configuração ─────────────────────────────────────────────────────────────
-const OPENCAGE_KEY = '...';
+const OPENCAGE_KEY = '';
 const METRO_RADIUS = 1500; // Raio de busca em metros (5km)
 
 const icons = {
