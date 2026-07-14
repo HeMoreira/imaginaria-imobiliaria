@@ -1,0 +1,8 @@
+2026-07-14 01:09:33,134 | ERROR | N/A | N/A N/A | 127.0.0.1 - - [14/Jul/2026 01:09:33] code 400, message Bad request version ('\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2026-07-14 01:11:41,177 | ERROR | N/A | N/A N/A | 127.0.0.1 - - [14/Jul/2026 01:11:41] code 400, message Bad request version ('\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2026-07-14 01:11:53,015 | ERROR | N/A | N/A N/A | 127.0.0.1 - - [14/Jul/2026 01:11:53] code 400, message Bad request version ('\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2026-07-14 01:11:56,536 | ERROR | N/A | N/A N/A | 127.0.0.1 - - [14/Jul/2026 01:11:56] code 400, message Bad request version ('tG:o®O\x88\x10')
+2026-07-14 01:11:56,540 | ERROR | N/A | N/A N/A | 127.0.0.1 - - [14/Jul/2026 01:11:56] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x07_\x01\x00\x07[\x03\x03\x9cl')
+2026-07-14 01:12:19,808 | WARNING | N/A | N/A N/A |  * Debugger is active!
+2026-07-14 01:12:22,502 | ERROR | N/A | N/A N/A | 127.0.0.1 - - [14/Jul/2026 01:12:22] code 400, message Bad request version ('\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+2026-07-14 01:12:23,260 | ERROR | N/A | N/A N/A | 127.0.0.1 - - [14/Jul/2026 01:12:23] code 400, message Bad request version ('\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')

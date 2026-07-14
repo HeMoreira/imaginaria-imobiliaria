@@ -1,12 +1,14 @@
 import os
 from datetime import timedelta
+from decouple import config
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = config('SECRET_KEY')
     if not SECRET_KEY:
         raise ValueError("SECRET_KEY não encontrada nas variáveis de ambiente.")
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///imaginariaimobiliaria.db'
+    SQLALCHEMY_DATABASE_URI = config('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DEBUG = config('DEBUG', default=False, cast=bool)
     PROPAGATE_EXCEPTIONS = True
 
     SESSION_COOKIE_HTTPONLY = True
