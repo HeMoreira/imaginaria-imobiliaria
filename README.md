@@ -26,16 +26,18 @@ pip install -r requirements.txt
 
 ### 3. Configurar variáveis de ambiente
 ```bash
+touch .env
 # Defina SECRET_KEY, DEBUG e SQLALCHEMY_DATABASE_URI em um arquivo .env
 ```
 > Exemplo (recomendado):
 > ```bash
+> # no arquivo .env
 > SECRET_KEY=sua_chave_secreta
 > SQLALCHEMY_DATABASE_URI=sqlite:///nome_do_seu_banco_de_dados.db
 > DEBUG=True
 > ```
 
-### 4. Certifique-se de que o direerório logs/ existe
+### 4. Certifique-se de que o diretório logs/ existe
 ```bash
 # Caso não exista, rode:
 mkdir logs
