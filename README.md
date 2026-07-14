@@ -35,20 +35,22 @@ pip install -r requirements.txt
 > DEBUG=True
 > ```
 
-### 4. Criar banco de dados
+### 4. Certifique-se de que o direerório logs/ existe
 ```bash
-flask db init
-flask db migrate -m "Initial migration."
-flask db upgrade
+# Caso não exista, rode:
+mkdir logs
 ```
 
-### 5. Criar usuário (administrador)
+### 5. Criar banco de dados e usuário administrador
 ```bash
 flask shell
-
-from models import db, Admin
-admin = Admin(username='meu_admin')
-admin.set_password('senha-segura')
+# No terminal do flask, crie o banco de dados...
+from models import db
+db.create_all()
+# ...E o seu usuário administrador.
+from models import Admin
+admin = Admin(username='username_do_admin')
+admin.set_password('senha_do_admin')
 db.session.add(admin)
 db.session.commit()
 exit()
@@ -60,8 +62,7 @@ exit()
 python app.py
 ```
 
-Acesse: http://127.0.0.1:8000 ou https://localhost:8000
-
+Acesse: http://127.0.0.1:8000 ou http://localhost:8000
 ---
 
 ## Funcionalidades Principais
@@ -72,6 +73,7 @@ Acesse: http://127.0.0.1:8000 ou https://localhost:8000
 | `/imoveis`   | Listagem e detalhes de imóveis disponíveis |
 | `/lo_11gin_k`| Página de login para administradores |
 | `/ad_11min_k`| Página de admin + gerenciamento (CRUD) de imóveis |
+> OBS: você NÃO será redirecionado para a página de login ao acessar /ad_11min_k. Acesse /lo_11gin_k diretamente.
 
 ## Segurança
 
